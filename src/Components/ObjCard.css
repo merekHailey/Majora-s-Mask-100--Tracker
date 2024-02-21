@@ -1,0 +1,7 @@
+:root {
+    --bodyColor: "#000000";
+}
+
+.objCard {
+    background-color: var(--bodyColor);
+}
