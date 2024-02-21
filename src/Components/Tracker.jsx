@@ -1,34 +1,35 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
-import {Data} from '../Data';
+import { LoadList, UndoList } from '../HelperFunctions';
 import ObjCard from './ObjCard';
-import { UpdatePossible } from '../HelperFunctions';
+import UndoBtn from './UndoBtn';
+
 export default function Tracker(props){
+
+
+    const [ShownObjCards, setShownObjCards] = useState(LoadList().map((Obj) => <ObjCard obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
+
     
-    useEffect(() => {
-        LoadList()
-    })
-    const [ShownObjCards, setShownObjCards] = useState([])
-    var ShownList = []
-    function LoadList(options){
-        UpdatePossible()
-        for(let i = 0; i < Data.length; i++){
-            if(Data[i].possible || Data[i].potential){
-                ShownList.push(Data[i])
-            }
-        }
-        setShownObjCards(ShownList.map((Obj) => <ObjCard obj={Obj} LoadList={LoadList}></ObjCard>))
+  function UndoObjective(){
+    if(UndoList.length > 0){
+      UndoList.pop().complete = false
+      setShownObjCards(LoadList().map((Obj) => <ObjCard obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
     }
+  }
+
+  function UpdateShown(){
+    setShownObjCards(LoadList().map((Obj) => <ObjCard obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
+  }
+
 
     return(
         <div className="tracker">
             <Box sx={{ width: '100%'/*, maxWidth: 360*/, bgcolor: 'background.paper' }}>
             <nav aria-label="ObjCards"></nav> 
                 <List>{ShownObjCards}</List>     
-                
-                
             </Box>
+            <UndoBtn UndoObjective={UndoObjective}/>
         </div>
     )
 }

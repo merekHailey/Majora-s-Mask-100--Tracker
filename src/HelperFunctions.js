@@ -1,8 +1,9 @@
-import { Data, AnjuMeeting, CowsSaved, DeedQuestStarted, IkanaCleansed, KafeiTrust, LetterDelivered, OceanCleared, OperationSolMates, PendantDelivered, PriorityMailRecieved, RomaniFriended, RomaniStoneRemoved, ScarecrowSong, SpringTime, SwampCleared } from "./Data"
-import { GrandmaSaved, BoatAccess } from "./Data"
+import { Data, AnjuMeeting, CowsSaved, DeedQuestStarted, IkanaCleansed, KafeiTrust, LetterDelivered, OceanCleared, OperationSolMates, PendantDelivered, PriorityMailRecieved, RomaniFriended, RomaniStoneRemoved, ScarecrowSong, SpringTime, SwampCleared, BoatAccess, GrandmaSaved } from "./Data"
 export let CycleNum = 0
 export let numBottles = 0
 export let TotalObjectivesCompleted = 0
+export var UndoList = []
+
 export class Time{
     constructor(StartTime, EndTime){
         this.StartTime = StartTime
@@ -17,31 +18,23 @@ export class Day{
     }
 }
 
-export class GameState{
-    constructor(name){
-        this.name = name
-        this.isActive = false
-    }
-}
 
-export class Objective{
 
-    constructor(name, timeRec, gameState, itemRecs, bottles, cost, estTime, cycleNum, priority, possible, potential, notes){
-        this.name = name
-        this.timeRec = timeRec
-        this.gameState = gameState
-        this.itemRecs = itemRecs
-        this.bottles = bottles
-        this.cost = cost
-        this.estTime = estTime
-        this.cycleNum = cycleNum
-        this.priority = priority
-        this.possible = possible
-        this.potential = potential
-        this.completed = false
-        this.notes = notes
-    }
-}
+
+
+export function LoadList(options){
+    let ShownList = []
+      UpdatePossible()
+      for(let i = 0; i < Data.length; i++){
+          if(!Data[i].complete){
+              if(Data[i].possible || Data[i].potential ){
+                  ShownList.push(Data[i])
+              }
+          }
+      }
+      return ShownList
+      
+  }
 
 export function ResetCycle() {
 	BoatAccess.isActive = false;
@@ -58,7 +51,7 @@ export function ResetCycle() {
 	AnjuMeeting.isActive = false;
 	LetterDelivered.isActive = false;
 	KafeiTrust.isActive = false;
-	PriorityMailRecieved.isActived = false;
+	PriorityMailRecieved.isActive = false;
 	PendantDelivered.isActive = false;
 	OperationSolMates.isActive = false;
 	CycleNum++;
@@ -66,12 +59,17 @@ export function ResetCycle() {
 
 export function CompleteObjective(Objective) {
 
-    Objective.completed = true;
-    //ObjToUndo = Objective;
+    
+    let index = FindObjIndex(Objective.name)
+    console.log(Data[index].complete)
+    Data[index].complete = true;
+    console.log(Data[index].complete)
+
     TotalObjectivesCompleted++;
     // if (IndexToComplete >= 22 && IndexToComplete <= 28) {
     //     numBottles++;
     // }
+    UndoList.push(Objective)
 }
 
 export function UpdatePossible() {
@@ -83,7 +81,7 @@ export function UpdatePossible() {
 		
 		if(Data[i].itemRecs != null) {               
 		    for(let j = 0; j < Data[i].itemRecs.length; ++j){
-		        if (!Data[Data[i].itemRecs[j]].completed) {
+		        if (!Data[i].itemRecs[j].complete) {
          			isPossible = false;
                     isPotential = false
         		}
@@ -124,4 +122,12 @@ export function FindObj(name){
 
     }
     return Data[i]
+}
+
+export function FindObjIndex(name){
+    
+    for(var i = 0; name !== Data[i].name; i++){
+
+    }
+    return Data[i].index
 }

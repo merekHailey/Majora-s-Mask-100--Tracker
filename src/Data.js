@@ -1,4 +1,32 @@
-import {Objective, Time, GameState, Day} from "./HelperFunctions"
+
+
+
+export class GameState{
+    constructor(name){
+        this.name = name
+        this.isActive = false
+    }
+}
+
+export class Objective{
+
+    constructor(index, name, timeRec, gameState, itemRecs, bottles, cost, estTime, cycleNum, priority, possible, potential, notes){
+        this.index = index
+        this.name = name
+        this.timeRec = timeRec
+        this.gameState = gameState
+        this.itemRecs = itemRecs
+        this.bottles = bottles
+        this.cost = cost
+        this.estTime = estTime
+        this.cycleNum = cycleNum
+        this.priority = priority
+        this.possible = possible
+        this.potential = potential
+        this.complete = false
+        this.notes = notes
+    }
+}
 
 export var BoatAccess = new GameState("Boat Access")
 export var GrandmaSaved = new GameState("Grandma Saved")
@@ -18,8 +46,12 @@ export var PriorityMailRecieved = new GameState("Priority Mail Recieved")
 export var PendantDelivered = new GameState("Pendant Delivered") 
 export var OperationSolMates = new GameState("Operation Sol Mates")
 
+var SongofTime = new Objective(0, "Song of Time", null, [DeedQuestStarted], null, 0, 0, 0, 0, 4, true, true)
+var SongOfHealing = new Objective(1, "Song of Healing",null , null, [SongofTime], 0, 0, 0, 0, 4, true, true)
+
 export var Data = [
-    new Objective("Song of Time", null, [DeedQuestStarted], null, 0, 0, 0, 0, 4, true, true),
+    SongofTime,
+    SongOfHealing
 ]
 
 
