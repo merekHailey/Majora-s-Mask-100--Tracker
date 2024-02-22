@@ -23,13 +23,17 @@
 
 .progressBar{
   grid-area: progress;
-  width: 100%;
+  width: 75%;
+  text-align: center;
+  justify-self: center;
   height: 100%;
+  margin: 5vh;
 }
 .tracker{
   grid-area: tracker;
   height: 80vh;
-  padding: 5vh;
+  margin: 5vh;
+  margin-top: 8vh;
 }
 
 
