@@ -116,7 +116,6 @@ export function UpdatePossible() {
             Data[i].potential = isPotential
 
 	}
-    console.log(Data)
 }
 
 function ComparePriority(a, b){

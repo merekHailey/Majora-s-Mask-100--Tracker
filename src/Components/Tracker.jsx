@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import { LoadList, UndoList } from '../HelperFunctions';
@@ -10,22 +10,15 @@ import Labels from './Labels';
 
 export default function Tracker(props){
 
-
-    const [ShownObjCards, setShownObjCards] = useState(LoadList().map((Obj) => <ObjCard className={!Obj.possible && Obj.potential ? "potential" : "possible"} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
-
     
   function UndoObjective(){
     if(UndoList.length > 0){
       UndoList.pop().complete = false
-      setShownObjCards(LoadList().map((Obj) => <ObjCard className={!Obj.possible && Obj.potential ? "potential" : "possible"} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
+      props.setShownObjCards(LoadList().map((Obj) => <ObjCard className={!Obj.possible && Obj.potential ? "potential" : "possible"} obj={Obj} UpdateShown={props.UpdateShown}></ObjCard>))
       props.UpdateProgress()
     }
   }
 
-  function UpdateShown(){
-    setShownObjCards(LoadList().map((Obj) => <ObjCard className={!Obj.possible && Obj.potential ? "potential" : "possible"} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
-    props.UpdateProgress()
-  }
 
 
     return(
@@ -34,7 +27,7 @@ export default function Tracker(props){
             <nav aria-label="ObjCards"></nav> 
                 <List>
                     <Labels/>
-                    {ShownObjCards}
+                    {props.ShownObjCards}
                 </List>     
             </Box>
             <UndoBtn UndoObjective={UndoObjective}/>

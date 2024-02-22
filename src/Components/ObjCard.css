@@ -5,8 +5,8 @@
     grid-template-areas: "row1"
                          "row2";
     width: 100%;
-    padding: 1vh;
-    outline: solid 1px;
+    padding-bottom: 0.7vh;
+    padding-top: 0.3vh;
     grid-template-rows: 50% 50%;
 }
 
@@ -17,9 +17,17 @@
     grid-template-areas: "row1"
                          "row2";
     width: 100%;
-    padding: 1vh;
-    outline: solid 1px;
+    padding-bottom: 0.7vh;
+    padding-top: 0.3vh;
     grid-template-rows: 50% 50%;
+}
+.button{
+    width: 100%;
+    border-left: none;
+    border-right: none;
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+    padding: 0;
 }
 
 .row1{

@@ -1,6 +1,5 @@
 import React from 'react';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import { CompleteObjective, Day, Time } from '../HelperFunctions';
 import './ObjCard.css'
 
@@ -22,6 +21,7 @@ export default function ObjCard(props){
             }
             return itemText
         }
+        else return "None"
     }
 
     function StateText(){
@@ -35,6 +35,7 @@ export default function ObjCard(props){
             }
             return stateText
         }
+        else return "None"
     }
 
     function PriorityText(){
@@ -93,8 +94,8 @@ export default function ObjCard(props){
     
     return(
         <div>
-            <ListItem disablePadding>
-                <ListItemButton onClick={ClickHandler}>
+            <ListItem disablePadding >
+                <button onClick={ClickHandler} className='button'>
                     <div className={props.className}>
                         <div className='row1'>
                             <span className='name'>{props.obj.name}</span> <span className={"items"}>{ItemsText()}</span> <span className={"state"}>{StateText()}</span> <span className={"priority"}>{PriorityText()}</span>
@@ -103,7 +104,7 @@ export default function ObjCard(props){
                             <span className='spot1'>{Spot1Text()}</span> <span className='spot2'>{Spot2Text()}</span> <span className='cycle'>{CycleNumText()}</span> <span className='notes'>{NotesText()}</span>
                         </div>
                     </div>
-                </ListItemButton>
+                </button>
             </ListItem>
         </div>
     )

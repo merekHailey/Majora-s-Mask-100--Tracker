@@ -10,9 +10,9 @@
   text-align: center;
   display: grid;
   grid-template-areas: "progress progress progress"
-                       ". tracker tracker"
-                       ". tracker tracker"
-                       ". tracker tracker";
+                       "state tracker tracker"
+                       "state tracker tracker"
+                       "state tracker tracker";
 
   grid-template-columns: 34% 33% 33%;
   grid-template-rows: 10% 30% 30% 30%;
@@ -28,6 +28,13 @@
   justify-self: center;
   height: 100%;
   margin: 5vh;
+}
+
+.stateChanger{
+  grid-area: state;
+  height: 80vh;
+  margin: 5vh;
+  margin-top: 8vh;
 }
 .tracker{
   grid-area: tracker;
