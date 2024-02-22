@@ -18,11 +18,13 @@ export default function Tracker(props){
     if(UndoList.length > 0){
       UndoList.pop().complete = false
       setShownObjCards(LoadList().map((Obj) => <ObjCard className={!Obj.possible && Obj.potential ? "potential" : "possible"} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
+      props.UpdateProgress()
     }
   }
 
   function UpdateShown(){
     setShownObjCards(LoadList().map((Obj) => <ObjCard className={!Obj.possible && Obj.potential ? "potential" : "possible"} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
+    props.UpdateProgress()
   }
 
 

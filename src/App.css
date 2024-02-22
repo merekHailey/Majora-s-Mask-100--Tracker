@@ -9,20 +9,26 @@
 .app {
   text-align: center;
   display: grid;
-  grid-template-areas: ". tracker tracker"
+  grid-template-areas: "progress progress progress"
+                       ". tracker tracker"
                        ". tracker tracker"
                        ". tracker tracker";
 
   grid-template-columns: 34% 33% 33%;
+  grid-template-rows: 10% 30% 30% 30%;
   height: 100vh;
 
   font-family: Triforce;
 }
 
-
+.progressBar{
+  grid-area: progress;
+  width: 100%;
+  height: 100%;
+}
 .tracker{
   grid-area: tracker;
-  height: 90vh;
+  height: 80vh;
   padding: 5vh;
 }
 
