@@ -4,22 +4,23 @@ import List from '@mui/material/List';
 import { LoadList, UndoList } from '../HelperFunctions';
 import ObjCard from './ObjCard';
 import UndoBtn from './UndoBtn';
+import './ObjCard.css'
 
 export default function Tracker(props){
 
 
-    const [ShownObjCards, setShownObjCards] = useState(LoadList().map((Obj) => <ObjCard obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
+    const [ShownObjCards, setShownObjCards] = useState(LoadList().map((Obj) => <ObjCard className={!Obj.possible && Obj.potential ? "potential" : "possible"} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
 
     
   function UndoObjective(){
     if(UndoList.length > 0){
       UndoList.pop().complete = false
-      setShownObjCards(LoadList().map((Obj) => <ObjCard obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
+      setShownObjCards(LoadList().map((Obj) => <ObjCard className={!Obj.possible && Obj.potential ? "potential" : "possible"} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
     }
   }
 
   function UpdateShown(){
-    setShownObjCards(LoadList().map((Obj) => <ObjCard obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
+    setShownObjCards(LoadList().map((Obj) => <ObjCard className={!Obj.possible && Obj.potential ? "potential" : "possible"} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
   }
 
 

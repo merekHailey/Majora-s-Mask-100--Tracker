@@ -10,7 +10,7 @@ export class GameState{
 
 export class Objective{
 
-    constructor(index, name, timeRec, gameState, itemRecs, bottles, cost, estTime, cycleNum, priority, possible, potential, notes){
+    constructor(index, name, timeRec, gameState, itemRecs, bottles, cost, estTime, cycleNum, priority, notes){
         this.index = index
         this.name = name
         this.timeRec = timeRec
@@ -21,8 +21,8 @@ export class Objective{
         this.estTime = estTime
         this.cycleNum = cycleNum
         this.priority = priority
-        this.possible = possible
-        this.potential = potential
+        this.possible = false
+        this.potential = false
         this.complete = false
         this.notes = notes
     }
@@ -46,12 +46,22 @@ export var PriorityMailRecieved = new GameState("Priority Mail Recieved")
 export var PendantDelivered = new GameState("Pendant Delivered") 
 export var OperationSolMates = new GameState("Operation Sol Mates")
 
-var SongofTime = new Objective(0, "Song of Time", null, [DeedQuestStarted], null, 0, 0, 0, 0, 4, true, true)
-var SongOfHealing = new Objective(1, "Song of Healing",null , null, [SongofTime], 0, 0, 0, 0, 4, true, true)
+var Magic = new Objective(0, "Magic", null, null, null, 0, 0, 5, 0, 1)
+var OcarinaOfTime = new Objective(1, "Ocarina of Time", null, null, [Magic], 0, 0, 0, 0, 5)
+var DekuMask = new Objective(2, "Deku Mask", null, null, [OcarinaOfTime], 0, 0, 0, 1, 1)
+var SongOfTime = new Objective(3, "Song of Time", null, [DeedQuestStarted], [OcarinaOfTime], 0, 0, 0, 0, 4)
+var SongOfHealing = new Objective(4, "Song of Healing",null , null, [SongOfTime, OcarinaOfTime], 0, 0, 0, 0, 4)
+var SongOfSoaring = new Objective(5, "Song of Soaring", null , [BoatAccess], [OcarinaOfTime], 0, 0, 0, 1, 4)
+var SongOfAwakening = new Objective(6, "Song of Awakening", null , [BoatAccess], [OcarinaOfTime, DekuMask], 0, 0, 180, 1, 2)
 
 export var Data = [
-    SongofTime,
-    SongOfHealing
+    Magic,
+    OcarinaOfTime,
+    DekuMask,
+    SongOfTime,
+    SongOfHealing,
+    SongOfSoaring,
+    SongOfAwakening
 ]
 
 

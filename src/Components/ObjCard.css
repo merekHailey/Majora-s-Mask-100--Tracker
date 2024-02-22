@@ -1,7 +1,7 @@
-:root {
-    --bodyColor: "#000000";
+.potential{
+    background-color: #cccccc;
 }
 
-.objCard {
-    background-color: var(--bodyColor);
+.possible{
+    background-color: #ffffff;
 }

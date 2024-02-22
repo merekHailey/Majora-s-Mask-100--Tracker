@@ -32,6 +32,7 @@ export function LoadList(options){
               }
           }
       }
+      ShownList.sort(ComparePriority)
       return ShownList
       
   }
@@ -78,6 +79,7 @@ export function UpdatePossible() {
 	for (let i = 0; i < Data.length; ++i) {
 		isPossible = true;
         isPotential = true
+       
 		
 		if(Data[i].itemRecs != null) {               
 		    for(let j = 0; j < Data[i].itemRecs.length; ++j){
@@ -99,21 +101,40 @@ export function UpdatePossible() {
 			}
 		}
 
-		if (numBottles < Data[i].bottles) {
+		if (Data[i].bottles != null && numBottles < Data[i].bottles) {
 			isPossible = false;
             isPotential = false
 		}
 
-		if (Data[i].cycleNum > CycleNum) {
-			isPossible = false;
-            isPotential = false
-		}
+		// if (Data[i].cycleNum > CycleNum) {
+		// 	isPossible = false;
+        //     isPotential = false
+		// }
 
 			Data[i].possible = isPossible
         
             Data[i].potential = isPotential
 
 	}
+    console.log(Data)
+}
+
+function ComparePriority(a, b){
+    if (a.priority < b.priority) {
+        return -1;
+    } else if (a.priority > b.priority) {
+        return 1;
+    }
+
+    
+    else if(a.timeRec != null && b.timeRec === null){
+        return -1
+    }
+    else if(a.timeRec === null && b.timeRec != null){
+        return 1
+    }
+    else
+        return 0;
 }
 
 export function FindObj(name){
