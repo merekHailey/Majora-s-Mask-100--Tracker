@@ -5,6 +5,8 @@ import { LoadList, UndoList } from '../HelperFunctions';
 import ObjCard from './ObjCard';
 import UndoBtn from './UndoBtn';
 import './ObjCard.css'
+import './Tracker.css'
+import Labels from './Labels';
 
 export default function Tracker(props){
 
@@ -26,9 +28,12 @@ export default function Tracker(props){
 
     return(
         <div className="tracker">
-            <Box sx={{ width: '100%'/*, maxWidth: 360*/, bgcolor: 'background.paper' }}>
+            <Box className='objsList'>
             <nav aria-label="ObjCards"></nav> 
-                <List>{ShownObjCards}</List>     
+                <List>
+                    <Labels/>
+                    {ShownObjCards}
+                </List>     
             </Box>
             <UndoBtn UndoObjective={UndoObjective}/>
         </div>

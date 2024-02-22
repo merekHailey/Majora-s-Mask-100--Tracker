@@ -1,0 +1,33 @@
+.labels{
+
+    justify-items: center;
+    display: grid;
+    grid-template-areas: "spot1 spot2 spot3 spot4";
+    width: 100%;
+    grid-template-columns: 35% 20% 20% 25%;
+}
+
+
+.spot1{
+    grid-area: spot1;
+    font-family: Triforce;
+    font-size: larger;
+}
+
+.spot2{
+    grid-area: spot2;
+    font-family: Triforce;
+    font-size: larger;
+}
+
+.spot3{
+    grid-area: spot3;
+    font-family: Triforce;
+    font-size: larger;
+}
+
+.spot4{
+    grid-area: spot4;
+    font-family: Triforce;
+    font-size: larger;
+}

@@ -8,6 +8,6 @@ export default function UndoBtn(props) {
     }
 
   return (
-      <Button variant="outlined" onClick={HandleClick}>Undo</Button>
+      <Button className={"undoBtn"} variant="outlined" onClick={HandleClick}>Undo</Button>
   );
 }

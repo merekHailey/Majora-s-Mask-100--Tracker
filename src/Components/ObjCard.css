@@ -1,7 +1,100 @@
 .potential{
     background-color: #cccccc;
+    justify-items: center;
+    display: grid;
+    grid-template-areas: "row1"
+                         "row2";
+    width: 100%;
+    padding: 1vh;
+    outline: solid 1px;
+    grid-template-rows: 50% 50%;
 }
 
 .possible{
     background-color: #ffffff;
+    justify-items: center;
+    display: grid;
+    grid-template-areas: "row1"
+                         "row2";
+    width: 100%;
+    padding: 1vh;
+    outline: solid 1px;
+    grid-template-rows: 50% 50%;
+}
+
+.row1{
+    display: grid;
+    padding-bottom: 1vh;
+    justify-items: center;
+    grid-template-areas: "name items state priority";
+    grid-template-columns: 35% 20% 20% 25%;
+    width: 100%;
+}
+
+.row2{
+    display: grid;
+    justify-items: center;
+    grid-template-areas: "spot1 spot2 cycle notes";
+    grid-template-columns: 35% 20% 20% 25%;
+    width: 100%;
+}
+
+.name{
+    grid-area: name;
+    font-family: Triforce;
+    font-size: larger;
+    padding-right: 5%;
+}
+
+.items{
+    grid-area: items;
+    font-family: Triforce;
+    font-size: larger;
+    padding-right: 5%;
+}
+
+.state{
+    grid-area: state;
+    font-family: Triforce;
+    font-size: larger;
+    padding-right: 5%;
+}
+
+.priority{
+    grid-area: priority;
+    font-family: Triforce;
+    font-size: larger;
+    padding-right: 5%;
+}
+
+.spot1{
+    grid-area: spot1;
+    font-family: Triforce;
+    font-size: larger;
+    padding-right: 5%;
+    padding-top: 1vh;
+}
+
+.spot2{
+    grid-area: spot2;
+    font-family: Triforce;
+    font-size: larger;
+    padding-right: 5%;
+    padding-top: 1vh;
+}
+
+.cycle{
+    grid-area: cycle;
+    font-family: Triforce;
+    font-size: larger;
+    padding-right: 5%;
+    padding-top: 1vh;
+}
+
+.notes{
+    grid-area: notes;
+    font-family: Triforce;
+    font-size: larger;
+    padding-right: 5%;
+    padding-top: 1vh;
 }

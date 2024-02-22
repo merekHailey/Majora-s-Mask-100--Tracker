@@ -5,16 +5,16 @@ export let TotalObjectivesCompleted = 0
 export var UndoList = []
 
 export class Time{
-    constructor(StartTime, EndTime){
-        this.StartTime = StartTime
-        this.EndTime = EndTime
+    constructor(startTime, endTime){
+        this.startTime = startTime
+        this.endTime = endTime
     }
     
 }
 
 export class Day{
-    constructor(Day){
-        this.Day = Day
+    constructor(day){
+        this.day = day
     }
 }
 

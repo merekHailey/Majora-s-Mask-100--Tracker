@@ -1,0 +1,23 @@
+.tracker{
+    display: grid;
+
+    grid-template-areas: "objs objs"
+                         ". undoBtn";
+    grid-template-rows: 93% 7%;
+    grid-template-columns: 80% 20%;
+}
+
+.objsList{
+    outline: solid black 1px;
+    height: 100%;
+    width: 100%;
+    grid-area: objs;
+}
+
+.undoBtn{
+    grid-area: undoBtn;
+    height: 100%;
+    margin-right: -5px;
+    text-align: right;
+    
+}
