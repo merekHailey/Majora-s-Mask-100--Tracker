@@ -1,8 +1,9 @@
-import { Data, AnjuMeeting, CowsSaved, DeedQuestStarted, IkanaCleansed, KafeiTrust, LetterDelivered, OceanCleared, OperationSolMates, PendantDelivered, PriorityMailRecieved, RomaniFriended, RomaniStoneRemoved, ScarecrowSong, SpringTime, SwampCleared, BoatAccess, GrandmaSaved } from "./Data"
+import { Data, AnjuMeeting, DeedQuestStarted, IkanaCleansed, KafeiTrust, LetterDelivered, OceanCleared, OperationSolMates, PendantDelivered, PriorityMailRecieved, RomaniFriended, RomaniStoneRemoved, ScarecrowSong, SpringTime, SwampCleared, BoatAccess, GrandmaSaved } from "./Data"
 export let CycleNum = 0
 export let numBottles = 0
 export let TotalObjectivesCompleted = 0
 export var UndoList = []
+
 
 export class Time{
     constructor(startTime, endTime){
@@ -45,7 +46,6 @@ export function ResetCycle() {
 	SpringTime.isActive = false;
 	OceanCleared.isActive = false;
 	IkanaCleansed.isActive = false;
-	CowsSaved.isActive = false;
 	DeedQuestStarted.isActive = false;
 	RomaniStoneRemoved.isActive = false;
 	ScarecrowSong.isActive = false;
@@ -62,14 +62,12 @@ export function CompleteObjective(Objective) {
 
     
     let index = FindObjIndex(Objective.name)
-    console.log(Data[index].complete)
     Data[index].complete = true;
-    console.log(Data[index].complete)
 
     TotalObjectivesCompleted++;
-    // if (IndexToComplete >= 22 && IndexToComplete <= 28) {
-    //     numBottles++;
-    // }
+    if (index >= 21 && index <= 26) {
+        numBottles++;
+    }
     UndoList.push(Objective)
 }
 
@@ -81,11 +79,13 @@ export function UpdatePossible() {
         isPotential = true
        
 		
-		if(Data[i].itemRecs != null) {               
+		if(Data[i].itemRecs != null) {        
+                   
 		    for(let j = 0; j < Data[i].itemRecs.length; ++j){
-		        if (!Data[i].itemRecs[j].complete) {
+		        if (!FindObj(Data[i].itemRecs[j]).complete) {
          			isPossible = false;
                     isPotential = false
+                    
         		}
             }    
         }               
@@ -93,10 +93,23 @@ export function UpdatePossible() {
 		if (Data[i].gameState != null) {
 			for (let j = 0; j < Data[i].gameState.length; ++j) {
 				if (!Data[i].gameState[j].isActive) {
-					isPossible = false;
+					isPossible = false
 				}
-				if (Data[i].name === "POH Tingle/Deku King Picture" && SwampCleared.isActive) {
-					isPossible = false;
+                if(Data[i].name === "Postman's Hat" && GrandmaSaved.isActive){
+                    isPossible = false
+                    isPotential = false
+                }
+                if(Data[i].name === "Couple's Mask" && GrandmaSaved.isActive){
+                    isPossible = false
+                    isPotential = false
+                }
+                if(Data[i].name === "All-Night Mask" && GrandmaSaved.isActive){
+                    isPossible = false
+                    isPotential = false
+                }
+				if (Data[i].name === "PoH: Tingle Picture" && SwampCleared.isActive) {
+					isPossible = false
+                    isPotential = false
 				}
 			}
 		}
@@ -138,16 +151,22 @@ function ComparePriority(a, b){
 
 export function FindObj(name){
     
-    for(var i = 0; name !== Data[i].name; i++){
-
+    for(var i = 0; i < Data.length; i++){
+        if(name === Data[i].name){
+            return Data[i]
+        }
     }
-    return Data[i]
+    return undefined
 }
 
 export function FindObjIndex(name){
     
-    for(var i = 0; name !== Data[i].name; i++){
-
+    
+    for(var i = 0; i < Data.length; i++){
+        console.log(Data[i])
+        if(name === Data[i].name){
+            return Data[i].index
+        }
     }
-    return Data[i].index
+    return undefined
 }

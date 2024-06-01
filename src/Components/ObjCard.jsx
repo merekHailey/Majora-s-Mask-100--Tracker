@@ -15,9 +15,9 @@ export default function ObjCard(props){
             let itemText = ""
             for(let i = 0; i < props.obj.itemRecs.length; ++i){
                 if(i === 0)
-                    itemText = props.obj.itemRecs[i].name
+                    itemText = props.obj.itemRecs[i]
                 else
-                    itemText += " / " + props.obj.itemRecs[i].name
+                    itemText += " / " + props.obj.itemRecs[i]
             }
             return itemText
         }
