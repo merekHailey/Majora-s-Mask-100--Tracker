@@ -1,7 +1,7 @@
 import { Data, Gamestates, FindStateByName } from "./Data"
-export let CycleNum = 0
-export let numBottles = 0
-export let TotalObjectivesCompleted = 0
+export var CycleNum = 0
+export var numBottles = 0
+export var TotalObjectivesCompleted = 0
 export var UndoList = []
 
 
@@ -9,7 +9,13 @@ export var UndoList = []
 
 
 
+export function setCycleNum(num){
+    CycleNum = num
+}
 
+export function setNumBottles(num){
+    numBottles = num
+}
 
 export function LoadList(options){
     let ShownList = []
@@ -148,7 +154,6 @@ export function FindObjIndex(name){
     
     
     for(var i = 0; i < Data.length; i++){
-        console.log(Data[i])
         if(name === Data[i].name){
             return Data[i].index
         }

@@ -4,7 +4,7 @@ import Tracker from './Components/Tracker';
 import TotalProgressBar from './Components/ProgressBar';
 import { Data, Gamestates } from './Data';
 import StateChanger from './Components/StateChanger';
-import { CycleNum, LoadList, numBottles } from './HelperFunctions';
+import { CompleteObjective, CycleNum, LoadList, numBottles, setCycleNum, setNumBottles } from './HelperFunctions';
 import ObjCard from './Components/ObjCard';
 
 
@@ -15,6 +15,7 @@ function App() {
   const [numPossible, setNumPossible] = useState(0)
   const [numPotential, setNumPotential] = useState(0)
 
+
   const [ShownObjCards, setShownObjCards] = useState(LoadList().map((Obj) => <ObjCard className={!Obj.possible && Obj.potential ? "potential" : "possible"} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
 
 
@@ -22,11 +23,15 @@ function App() {
   
   useEffect(() => {
     LoadGame()
+    console.log(localStorage)
   }, [])
 
   useEffect(() => {
+    
     AutoSave()
-  },[Data, Gamestates, CycleNum, numBottles])
+    console.log("Saved!")
+  },[GameStateChecks, ShownObjCards])
+
   useEffect(() => {
     UpdateProgress()
   })
@@ -34,7 +39,34 @@ function App() {
   
 
   function LoadGame(){
-    //localStorage.getItem()
+    setCycleNum(localStorage.getItem("CycleNum"))
+  
+    setNumBottles(localStorage.getItem("numBottles"))
+      
+    for(let objective of Data){
+        let val = localStorage.getItem(objective.name)
+        if(val === "T"){
+          CompleteObjective(objective)
+          UpdateShown()
+        }
+      }
+      
+    for(let state of Gamestates){
+        if(localStorage.getItem(state.name) === "true"){
+          state.isActive = true
+        }
+        else
+        state.isActive = false
+    }
+    setGameStateChecks(Gamestates)
+    
+
+    
+    
+
+    for(let state of Gamestates){
+      localStorage.setItem(state.name, state.isActive)
+    }
   }
 
   function AutoSave(){

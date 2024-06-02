@@ -15,7 +15,7 @@ export default function StateChanger(props) {
 
   function StateComponents() {
     let StateComponents = []
-    for(let state of Gamestates){
+    for(let state of props.GameStateChecks){
       StateComponents.push(<FormControlLabel control={<Checkbox id={state.name} checked={state.isActive} onClick={HandleClick}/>} label={state.name} />)
     }
     return StateComponents
