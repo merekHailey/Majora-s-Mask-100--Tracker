@@ -1,6 +1,6 @@
 import React from 'react';
 import ListItem from '@mui/material/ListItem';
-import { CompleteObjective, Day, Time } from '../HelperFunctions';
+import { CompleteObjective } from '../HelperFunctions';
 import './ObjCard.css'
 
 export default function ObjCard(props){   
@@ -45,11 +45,11 @@ export default function ObjCard(props){
     function Spot1Text(){
 
         if(props.timeRec !== null){
-            if(typeof props.timeRec === Time)
-            return "Time: " + props.obj.timeRec.startTime + " - " + props.obj.timeRec.endTime
-            else if(typeof props.timeRec === Day){
-                return "Day: " + props.timeRec.day
-            }
+            // if(typeof props.timeRec === Time)
+            // return "Time: " + props.obj.timeRec.startTime + " - " + props.obj.timeRec.endTime
+            // else if(typeof props.timeRec === Day){
+            //     return "Day: " + props.timeRec.day
+            // }
         }
         else if(props.obj.bottles !== 0){
             let bottleText = ""

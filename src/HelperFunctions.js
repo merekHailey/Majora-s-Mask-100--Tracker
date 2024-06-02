@@ -1,23 +1,11 @@
-import { Data, AnjuMeeting, DeedQuestStarted, IkanaCleansed, KafeiTrust, LetterDelivered, OceanCleared, OperationSolMates, PendantDelivered, PriorityMailRecieved, RomaniFriended, RomaniStoneRemoved, ScarecrowSong, SpringTime, SwampCleared, BoatAccess, GrandmaSaved } from "./Data"
+import { Data, Gamestates, FindStateByName } from "./Data"
 export let CycleNum = 0
 export let numBottles = 0
 export let TotalObjectivesCompleted = 0
 export var UndoList = []
 
 
-export class Time{
-    constructor(startTime, endTime){
-        this.startTime = startTime
-        this.endTime = endTime
-    }
-    
-}
 
-export class Day{
-    constructor(day){
-        this.day = day
-    }
-}
 
 
 
@@ -39,24 +27,21 @@ export function LoadList(options){
   }
 
 export function ResetCycle() {
-	BoatAccess.isActive = false;
-	GrandmaSaved.isActive = false;
-	RomaniFriended.isActive = false;
-	SwampCleared.isActive = false;
-	SpringTime.isActive = false;
-	OceanCleared.isActive = false;
-	IkanaCleansed.isActive = false;
-	DeedQuestStarted.isActive = false;
-	RomaniStoneRemoved.isActive = false;
-	ScarecrowSong.isActive = false;
-	AnjuMeeting.isActive = false;
-	LetterDelivered.isActive = false;
-	KafeiTrust.isActive = false;
-	PriorityMailRecieved.isActive = false;
-	PendantDelivered.isActive = false;
-	OperationSolMates.isActive = false;
+	for(let state of Gamestates){
+        state.isActive = false
+    }
 	CycleNum++;
 }
+
+// export function FindGamestateID(name){
+//     for(let state of Gamestates){
+//         if(state.name === name){
+//             return state.id
+//         }
+        
+//     }
+//     return undefined
+// }
 
 export function CompleteObjective(Objective) {
 
@@ -92,22 +77,22 @@ export function UpdatePossible() {
 
 		if (Data[i].gameState != null) {
 			for (let j = 0; j < Data[i].gameState.length; ++j) {
-				if (!Data[i].gameState[j].isActive) {
+				if (!FindStateByName(Data[i].gameState[j].name).isActive) {
 					isPossible = false
 				}
-                if(Data[i].name === "Postman's Hat" && GrandmaSaved.isActive){
+                if(Data[i].name === "Postman's Hat" && FindStateByName("Grandma Saved").isActive){
                     isPossible = false
                     isPotential = false
                 }
-                if(Data[i].name === "Couple's Mask" && GrandmaSaved.isActive){
+                if(Data[i].name === "Couple's Mask" && FindStateByName("Grandma Saved").isActive){
                     isPossible = false
                     isPotential = false
                 }
-                if(Data[i].name === "All-Night Mask" && GrandmaSaved.isActive){
+                if(Data[i].name === "All-Night Mask" && FindStateByName("Grandma Saved").isActive){
                     isPossible = false
                     isPotential = false
                 }
-				if (Data[i].name === "PoH: Tingle Picture" && SwampCleared.isActive) {
+				if (Data[i].name === "PoH: Tingle Picture" && FindStateByName("Swamp Cleared").isActive) {
 					isPossible = false
                     isPotential = false
 				}
@@ -119,10 +104,10 @@ export function UpdatePossible() {
             isPotential = false
 		}
 
-		// if (Data[i].cycleNum > CycleNum) {
-		// 	isPossible = false;
-        //     isPotential = false
-		// }
+		if (Data[i].cycleNum > CycleNum) {
+			isPossible = false;
+            isPotential = false
+		}
 
 			Data[i].possible = isPossible
         
