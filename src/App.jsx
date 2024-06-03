@@ -39,11 +39,11 @@ function App() {
   
 
   function LoadGame(){
-    setCycleNum(localStorage.getItem("CycleNum"))
-    setCycleNumState(localStorage.getItem("CycleNum"))
+    setCycleNum(parseInt(localStorage.getItem("CycleNum")))
+    setCycleNumState(parseInt(localStorage.getItem("CycleNum")))
 
   
-    setNumBottles(localStorage.getItem("numBottles"))
+    setNumBottles(parseInt(localStorage.getItem("numBottles")))
       
     for(let objective of Data){
         let val = localStorage.getItem(objective.name)

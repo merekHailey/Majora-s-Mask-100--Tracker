@@ -39,7 +39,7 @@
 
 .stateChanger{
   grid-area: state;
-  height: 80vh;
+  height: 45vh;
   margin: 5vh;
   margin-top: 8vh;
 }

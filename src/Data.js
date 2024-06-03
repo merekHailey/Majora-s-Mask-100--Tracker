@@ -45,16 +45,15 @@ export var Gamestates = [
     new GameState(4, "Spring Time") ,
     new GameState(5, "Ocean Cleared") , 
     new GameState(6, "Ikana Cleansed") , 
-    new GameState(7, "Cows Saved") ,
-    new GameState(8, "Deed Quest Started") , 
-    new GameState(9, "Romani Stone Removed"), 
-    new GameState(10, "Scarecrow Song") ,
-    new GameState(11, "Anju Meeting") ,
-    new GameState(12, "Letter Delivered") ,
-    new GameState(13, "Kafei Trust") ,
-    new GameState(14, "Priority Mail Recieved") ,
-    new GameState(15, "Pendant Delivered") ,
-    new GameState(16, "Operation Sol Mates")
+    new GameState(7, "Deed Quest Started") , 
+    new GameState(8, "Romani Stone Removed"), 
+    new GameState(9, "Scarecrow Song") ,
+    new GameState(10, "Anju Meeting") ,
+    new GameState(11, "Letter Delivered") ,
+    new GameState(12, "Kafei Trust") ,
+    new GameState(13, "Priority Mail Recieved") ,
+    new GameState(14, "Pendant Delivered") ,
+    new GameState(15, "Operation Sol Mates")
 ]
 
 
