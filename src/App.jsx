@@ -4,7 +4,7 @@ import Tracker from './Components/Tracker';
 import TotalProgressBar from './Components/ProgressBar';
 import { Data, Gamestates } from './Data';
 import StateChanger from './Components/StateChanger';
-import { CompleteObjective, CycleNum, LoadList, numBottles, setCycleNum, setNumBottles } from './HelperFunctions';
+import { CompleteObjective, CycleNum, LoadList, ResetCycle, UpdatePossible, numBottles, setCycleNum, setNumBottles } from './HelperFunctions';
 import ObjCard from './Components/ObjCard';
 
 
@@ -18,12 +18,12 @@ function App() {
 
   const [ShownObjCards, setShownObjCards] = useState(LoadList().map((Obj) => <ObjCard className={!Obj.possible && Obj.potential ? "potential" : "possible"} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
 
+  const [CycleNumState, setCycleNumState] = useState(0)
 
   const [GameStateChecks, setGameStateChecks] = useState(Gamestates)
   
   useEffect(() => {
     LoadGame()
-    console.log(localStorage)
   }, [])
 
   useEffect(() => {
@@ -40,6 +40,8 @@ function App() {
 
   function LoadGame(){
     setCycleNum(localStorage.getItem("CycleNum"))
+    setCycleNumState(localStorage.getItem("CycleNum"))
+
   
     setNumBottles(localStorage.getItem("numBottles"))
       
@@ -59,6 +61,7 @@ function App() {
         state.isActive = false
     }
     setGameStateChecks(Gamestates)
+
     
 
     
@@ -128,12 +131,30 @@ function App() {
     UpdateProgress()
   }
 
+  function FullReset(){
+    ResetCycle()
+    UpdateState("All", false)
+    for(let obj of Data){
+      obj.complete = false
+    }
+    setCycleNumState(0)
+    UpdatePossible()
+    UpdateShown()
+  }
+
+  function setNextCycle(){
+    setCycleNum(CycleNumState + 1)
+    setCycleNumState(CycleNumState + 1)
+    UpdatePossible()
+    UpdateShown()
+  }
+
 
   return (
     <div className='app'>
-      <TotalProgressBar numCompleted={numCompleted} numPossible={numPossible} numPotential={numPotential}/>
+      <TotalProgressBar CycleNumState={CycleNumState} numCompleted={numCompleted} numPossible={numPossible} numPotential={numPotential}/>
       <StateChanger className={"stateChanger"} UpdateState={UpdateState} GameStateChecks={GameStateChecks} setGameStateChecks={setGameStateChecks}/>
-      <Tracker UpdateProgress={UpdateProgress} UpdateShown={UpdateShown} setShownObjCards={setShownObjCards} ShownObjCards={ShownObjCards}/>
+      <Tracker setNextCycle={setNextCycle} FullReset={FullReset} CycleNumState={CycleNumState} setCycleNumState={setCycleNumState} UpdateProgress={UpdateProgress} UpdateShown={UpdateShown} setShownObjCards={setShownObjCards} ShownObjCards={ShownObjCards}/>
       
     </div>
   )

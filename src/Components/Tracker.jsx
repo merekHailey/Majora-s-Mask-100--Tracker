@@ -1,12 +1,14 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
-import { LoadList, UndoList } from '../HelperFunctions';
+import { CycleNum, LoadList, UndoList, UpdatePossible, setCycleNum } from '../HelperFunctions';
 import ObjCard from './ObjCard';
 import UndoBtn from './UndoBtn';
 import './ObjCard.css'
 import './Tracker.css'
 import Labels from './Labels';
+import NextCycle from './NextCycle';
+import FullReset from './FullReset';
 
 export default function Tracker(props){
 
@@ -19,18 +21,22 @@ export default function Tracker(props){
     }
   }
 
+  
+
 
 
     return(
         <div className="tracker">
-            <Box className='objsList'>
+            <Box className='objsBox'>
             <nav aria-label="ObjCards"></nav> 
-                <List>
+                <List id="objsList">
                     <Labels/>
                     {props.ShownObjCards}
                 </List>     
             </Box>
             <UndoBtn UndoObjective={UndoObjective}/>
+            <NextCycle setNextCycle={props.setNextCycle}/>
+            <FullReset FullReset={props.FullReset}/>
         </div>
     )
 }

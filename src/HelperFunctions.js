@@ -36,7 +36,7 @@ export function ResetCycle() {
 	for(let state of Gamestates){
         state.isActive = false
     }
-	CycleNum++;
+	CycleNum = 0;
 }
 
 // export function FindGamestateID(name){
