@@ -6,6 +6,7 @@ import { Data, Gamestates } from './Data';
 import StateChanger from './Components/StateChanger';
 import { CompleteObjective, CycleNum, LoadList, ResetCycle, UpdatePossible, numBottles, setCycleNum, setNumBottles } from './HelperFunctions';
 import ObjCard from './Components/ObjCard';
+import AlarmBox from './Components/AlarmBox';
 
 
 
@@ -21,6 +22,8 @@ function App() {
   const [CycleNumState, setCycleNumState] = useState(0)
 
   const [GameStateChecks, setGameStateChecks] = useState(Gamestates)
+
+  const [Alarms, setAlarms] = useState([])
   
   useEffect(() => {
     LoadGame()
@@ -29,8 +32,7 @@ function App() {
   useEffect(() => {
     
     AutoSave()
-    console.log("Saved!")
-  },[GameStateChecks, ShownObjCards])
+  },[GameStateChecks, ShownObjCards, Alarms])
 
   useEffect(() => {
     UpdateProgress()
@@ -155,6 +157,7 @@ function App() {
       <TotalProgressBar CycleNumState={CycleNumState} numCompleted={numCompleted} numPossible={numPossible} numPotential={numPotential}/>
       <StateChanger className={"stateChanger"} UpdateState={UpdateState} GameStateChecks={GameStateChecks} setGameStateChecks={setGameStateChecks}/>
       <Tracker setNextCycle={setNextCycle} FullReset={FullReset} CycleNumState={CycleNumState} setCycleNumState={setCycleNumState} UpdateProgress={UpdateProgress} UpdateShown={UpdateShown} setShownObjCards={setShownObjCards} ShownObjCards={ShownObjCards}/>
+      <AlarmBox Alarms={Alarms} setAlarms={setAlarms}/>
       
     </div>
   )

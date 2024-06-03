@@ -1,0 +1,27 @@
+.alarm{
+
+    justify-items: center;
+    display: grid;
+    grid-template-areas: "label day time";
+    width: 100%;
+    grid-template-columns: 60% 15% 25%;
+}
+
+
+.label{
+    grid-area: label;
+    font-family: Triforce;
+    font-size: larger;
+}
+
+.day{
+    grid-area: day;
+    font-family: Triforce;
+    font-size: larger;
+}
+
+.time{
+    grid-area: time;
+    font-family: Triforce;
+    font-size: larger;
+}

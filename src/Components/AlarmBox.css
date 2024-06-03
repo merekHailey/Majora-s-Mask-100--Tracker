@@ -1,0 +1,13 @@
+.AlarmBox{
+    display: grid;
+
+    grid-template-areas: "Alarms"
+                         "setAlarmBtn";
+    grid-template-rows: 90% 10%;
+    grid-template-columns: 100%;
+}
+
+.setAlarmBtn{
+    grid-area: setAlarmBtn;
+
+}
