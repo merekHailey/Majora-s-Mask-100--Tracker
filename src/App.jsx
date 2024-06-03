@@ -4,7 +4,7 @@ import Tracker from './Components/Tracker';
 import TotalProgressBar from './Components/ProgressBar';
 import { Data, Gamestates } from './Data';
 import StateChanger from './Components/StateChanger';
-import { CompleteObjective, CycleNum, LoadList, ResetCycle, UpdatePossible, numBottles, setCycleNum, setNumBottles } from './HelperFunctions';
+import { ChangeCurrentDay, CompleteObjective, CycleNum, LoadList, ResetCycle, UpdatePossible, currentDay, numBottles, setCycleNum, setNumBottles } from './HelperFunctions';
 import ObjCard from './Components/ObjCard';
 import AlarmBox from './Components/AlarmBox';
 
@@ -20,6 +20,8 @@ function App() {
   const [ShownObjCards, setShownObjCards] = useState(LoadList().map((Obj) => <ObjCard className={!Obj.possible && Obj.potential ? "potential" : "possible"} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
 
   const [CycleNumState, setCycleNumState] = useState(0)
+
+  const [CurrentDay, setCurrentDay] = useState("Day 1")
 
   const [GameStateChecks, setGameStateChecks] = useState(Gamestates)
 
@@ -151,13 +153,20 @@ function App() {
     UpdateShown()
   }
 
+  function ChangeDay(day){
+    setCurrentDay(day)
+    ChangeCurrentDay(day)
+    UpdateShown()
+  }
+
 
   return (
     <div className='app'>
-      <TotalProgressBar CycleNumState={CycleNumState} numCompleted={numCompleted} numPossible={numPossible} numPotential={numPotential}/>
+      <span className='cycle'>Cycle Number: {CycleNumState}</span> <span className='total'>Total Progress</span><span className='day'>Time of Day: {CurrentDay}</span>
+      <TotalProgressBar CurrentDay={CurrentDay} CycleNumState={CycleNumState} numCompleted={numCompleted} numPossible={numPossible} numPotential={numPotential}/>
       <StateChanger className={"stateChanger"} UpdateState={UpdateState} GameStateChecks={GameStateChecks} setGameStateChecks={setGameStateChecks}/>
-      <Tracker setNextCycle={setNextCycle} FullReset={FullReset} CycleNumState={CycleNumState} setCycleNumState={setCycleNumState} UpdateProgress={UpdateProgress} UpdateShown={UpdateShown} setShownObjCards={setShownObjCards} ShownObjCards={ShownObjCards}/>
-      <AlarmBox Alarms={Alarms} setAlarms={setAlarms}/>
+      <Tracker ChangeDay={ChangeDay} CurrentDay={CurrentDay} setNextCycle={setNextCycle} FullReset={FullReset} CycleNumState={CycleNumState} setCycleNumState={setCycleNumState} UpdateProgress={UpdateProgress} UpdateShown={UpdateShown} setShownObjCards={setShownObjCards} ShownObjCards={ShownObjCards}/>
+      <AlarmBox CurrentDay={CurrentDay} Alarms={Alarms} setAlarms={setAlarms}/>
       
     </div>
   )

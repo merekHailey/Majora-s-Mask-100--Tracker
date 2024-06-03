@@ -9,21 +9,37 @@
 .app {
   text-align: center;
   display: grid;
-  grid-template-areas: "cycle progress progress progress"
+  grid-template-areas: ". . . ."
+                       "cycle cycle total day"
+                       "progress progress progress progress"
                        ". . . ."
                        "state state tracker tracker"
                        "alarmBox alarmBox tracker tracker"
                        "alarmBox alarmBox tracker tracker";
 
   grid-template-columns: 10% 24% 33% 33%;
-  grid-template-rows: 10% 2% 55% 3% 30%;
+  grid-template-rows: 1% 2% 7% 2% 55% 3% 30%;
   height: 100vh;
+  align-items: baseline;
 
   font-family: Triforce;
 }
 
 .cycle{
   grid-area: cycle;
+  font-size: 3vh;
+  width: 100%;
+}
+
+.total{
+  grid-area: total;
+  font-size: 5vh;
+  width: 100%;
+}
+
+.day{
+  grid-area: day;
+  font-size: 3vh;
   width: 100%;
 }
 
@@ -35,6 +51,7 @@
   justify-self: center;
   height: 100%;
   margin: 5vh;
+
 }
 
 .stateChanger{

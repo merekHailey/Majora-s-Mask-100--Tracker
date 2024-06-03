@@ -3,6 +3,7 @@ export var CycleNum = 0
 export var numBottles = 0
 export var TotalObjectivesCompleted = 0
 export var UndoList = []
+export var currentDay = "Day 1"
 
 
 
@@ -115,11 +116,89 @@ export function UpdatePossible() {
             isPotential = false
 		}
 
+        if(!isCorrectTime(Data[i].day)){
+            isPossible = false
+        }
+
 			Data[i].possible = isPossible
         
             Data[i].potential = isPotential
 
 	}
+}
+
+export function ChangeCurrentDay(day){
+    currentDay = day
+}
+
+function isCorrectTime(day){
+    if(day === null){
+        return true
+    }
+
+    if(day === currentDay){
+        return true
+    }
+
+    if(day === "Day" && currentDay === "Day 1"){
+        return true
+    }
+    if(day === "Day" && currentDay === "Day 2"){
+        return true
+    }
+    if(day === "Day" && currentDay === "Day 3"){
+        return true
+    }
+
+    if(day === "Night" && currentDay === "Night 1"){
+        return true
+    }
+    if(day === "Night" && currentDay === "Night 2"){
+        return true
+    }
+    if(day === "Night" && currentDay === "Night 3"){
+        return true
+    }
+
+    if(day === "Day 1 or Day 2" && currentDay === "Day 1"){
+        return true
+    }
+    if(day === "Day 1 or Day 2" && currentDay === "Day 2"){
+        return true
+    }
+    if(day === "Day 2 or Day 3" && currentDay === "Day 2"){
+        return true
+    }
+    if(day === "Day 2 or Day 3" && currentDay === "Day 3"){
+        return true
+    }
+    if(day === "Day 1 or Day 3" && currentDay === "Day 1"){
+        return true
+    }
+    if(day === "Day 1 or Day 3" && currentDay === "Day 3"){
+        return true
+    }
+
+    if(day === "Night 1 or Night 2" && currentDay === "Night 1"){
+        return true
+    }
+    if(day === "Night 1 or Night 2" && currentDay === "Night 2"){
+        return true
+    }
+    if(day === "Night 2 or Night 3" && currentDay === "Night 2"){
+        return true
+    }
+    if(day === "Night 2 or Night 3" && currentDay === "Night 3"){
+        return true
+    }
+    if(day === "Night 1 or Night 3" && currentDay === "Night 1"){
+        return true
+    }
+    if(day === "Night 1 or Night 3" && currentDay === "Night 3"){
+        return true
+    }
+
+    return false
 }
 
 function ComparePriority(a, b){

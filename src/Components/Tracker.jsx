@@ -9,6 +9,7 @@ import './Tracker.css'
 import Labels from './Labels';
 import NextCycle from './NextCycle';
 import FullReset from './FullReset';
+import CurrentDayBtn from './CurrentDayBtn';
 
 export default function Tracker(props){
 
@@ -37,6 +38,7 @@ export default function Tracker(props){
             <UndoBtn UndoObjective={UndoObjective}/>
             <NextCycle setNextCycle={props.setNextCycle}/>
             <FullReset FullReset={props.FullReset}/>
+            <CurrentDayBtn ChangeDay={props.ChangeDay} CurrentDay={props.CurrentDay}/>
         </div>
     )
 }
