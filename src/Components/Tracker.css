@@ -1,10 +1,10 @@
 .tracker{
     display: grid;
 
-    grid-template-areas: "objs objs objs objs objs"
-                         "fullResetBtn . nextCycleBtn . undoBtn";
+    grid-template-areas: "objs        objs objs      objs   objs   objs objs"
+                         "fullResetBtn . changeDayBtn . nextCycleBtn . undoBtn";
     grid-template-rows: 86% 7%;
-    grid-template-columns: 20% 40% 19% 1% 20%;
+    grid-template-columns: 20% 20% 19% 1% 19% 1% 20%;
 
 }
 
@@ -34,6 +34,17 @@
     height: 100%;
     width: 100%;
     text-align: center;
+}
+
+.changeDayBtn{
+    grid-area: changeDayBtn;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+.dayBtn{
+    height: 100%;
+    width: 100%;
 }
 
 .fullResetBtn{

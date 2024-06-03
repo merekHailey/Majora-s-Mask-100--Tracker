@@ -22,8 +22,8 @@ export default function CurrentDayBtn(props) {
       };
 
   return (
-    <div>
-      <Button className={"currentDayBtn"} variant="outlined" onClick={HandleClick}>Change Current Day</Button>
+    <div className={"changeDayBtn"}>
+      <Button className='dayBtn' variant="outlined" onClick={HandleClick}>Set Day</Button>
       <CurrentDayDialog
             id="Day-Selector"
             keepMounted

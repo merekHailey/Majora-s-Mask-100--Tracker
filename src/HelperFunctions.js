@@ -131,7 +131,7 @@ export function ChangeCurrentDay(day){
     currentDay = day
 }
 
-function isCorrectTime(day){
+export function isCorrectTime(day){
     if(day === null){
         return true
     }

@@ -3,8 +3,12 @@
 
     grid-template-areas: "Alarms"
                          "setAlarmBtn";
-    grid-template-rows: 90% 10%;
+    grid-template-rows: 85% 15%;
     grid-template-columns: 100%;
+}
+
+.Alarms{
+    grid-area: Alarms;
 }
 
 .setAlarmBtn{

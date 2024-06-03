@@ -7,6 +7,7 @@ import AlarmTimeDialog from './AlarmTimeDialog';
 import AlarmLabelDialog from './AlarmLabelDialog';
 import Alarm from './Alarm';
 import './AlarmBox.css'
+import { isCorrectTime } from '../HelperFunctions'
 
 
 
@@ -67,7 +68,9 @@ export default function AlarmBox(props) {
   function BuildAlarms() {
     let Alarms = []
     for(let alarm of props.Alarms){
-      Alarms.push(<Alarm RemoveAlarm={RemoveAlarm} alarms={Alarms} id={alarm.label} alarm={alarm}/>)
+      if(isCorrectTime(alarm.day)){
+        Alarms.push(<Alarm RemoveAlarm={RemoveAlarm} alarms={Alarms} id={alarm.label} alarm={alarm}/>)
+      }
     }
     return Alarms
   }

@@ -10,16 +10,14 @@ export default function Alarm(props){
     
     
     return(
-        <button id={props.id} onClick={ClickHandler}>
-            <div>
-                <ListItem disablePadding >
+        <button className='alarm' id={props.id} onClick={ClickHandler}>
+          
                     
-                    <div className={"Alarm"}>
-                        <span className='label'>{props.alarm.label}</span> <span className={"day"}>{props.alarm.day}</span> <span className={"time"}>{props.alarm.time}</span>
-                    </div>
+                        <div className='label'>{props.alarm.label}</div> 
+                        <div className={"day"}>{props.alarm.day}</div> 
+                        <div className={"time"}>{props.alarm.time}</div>
                     
-                </ListItem>
-            </div>
+                    
         </button>
     )
 }

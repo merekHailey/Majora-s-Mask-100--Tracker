@@ -4,24 +4,24 @@
     display: grid;
     grid-template-areas: "label day time";
     width: 100%;
-    grid-template-columns: 60% 15% 25%;
+    grid-template-columns: 50% 20% 30%;
 }
 
 
 .label{
     grid-area: label;
     font-family: Triforce;
-    font-size: larger;
+    font-size: 3vh;
 }
 
 .day{
     grid-area: day;
     font-family: Triforce;
-    font-size: larger;
+    font-size: 3vh;
 }
 
 .time{
     grid-area: time;
     font-family: Triforce;
-    font-size: larger;
+    font-size: 3vh;
 }
