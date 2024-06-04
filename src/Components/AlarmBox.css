@@ -1,10 +1,10 @@
 .AlarmBox{
     display: grid;
 
-    grid-template-areas: "Alarms"
-                         "setAlarmBtn";
+    grid-template-areas: "Alarms Alarms"
+                         "showAllBtn setAlarmBtn";
     grid-template-rows: 85% 15%;
-    grid-template-columns: 100%;
+    grid-template-columns: 50% 50%;
     
 }
 
@@ -14,7 +14,15 @@
     overflow: auto;
 }
 
+.showAllBtn{
+    grid-area: showAllBtn;
+}
+
 .setAlarmBtn{
     grid-area: setAlarmBtn;
 
+}
+
+#isAll{
+    background-color: #cccccc;
 }

@@ -5,6 +5,11 @@
     grid-template-areas: "label day time";
     width: 100%;
     grid-template-columns: 50% 20% 30%;
+    border: solid 1px;
+}
+
+.alarm:hover{
+    border: solid 2px;
 }
 
 

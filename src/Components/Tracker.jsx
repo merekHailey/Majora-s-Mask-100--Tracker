@@ -14,6 +14,11 @@ export default function Tracker(props){
 
  
 
+    function setId(){
+        if(props.allShown){
+            return "isAll"
+        }
+    }
   
 
 
@@ -31,7 +36,7 @@ export default function Tracker(props){
             <NextCycle setNextCycle={props.setNextCycle}/>
             <FullReset FullReset={props.FullReset}/>
             <CurrentDayBtn ChangeDay={props.ChangeDay} CurrentDay={props.CurrentDay}/>
-            <SeeAllObjsBtn ToggleAll={props.ToggleAll}/>
+            <SeeAllObjsBtn id={setId()} ToggleAll={props.ToggleAll}/>
         </div>
     )
 }

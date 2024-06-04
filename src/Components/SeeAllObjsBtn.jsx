@@ -8,7 +8,8 @@ export default function SeeAllObjsBtn(props) {
         props.ToggleAll(!allShown)
     }
 
+
   return (
-      <Button className={"seeAllObjsBtn"} variant="outlined" onClick={HandleClick}>See All</Button>
+      <Button id={props.id} className={"seeAllObjsBtn"} variant="outlined" onClick={HandleClick}>See All</Button>
   );
 }

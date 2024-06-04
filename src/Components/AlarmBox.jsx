@@ -69,11 +69,28 @@ export default function AlarmBox(props) {
   function BuildAlarms() {
     let Alarms = []
     for(let alarm of props.Alarms){
-      if(isCorrectTime(alarm.day)){
+      if(!props.isAllAlarms){
+        if(isCorrectTime(alarm.day)){
+          Alarms.push(<Alarm RemoveAlarm={RemoveAlarm} alarms={Alarms} id={alarm.label} alarm={alarm}/>)
+        }
+      }
+      else{
         Alarms.push(<Alarm RemoveAlarm={RemoveAlarm} alarms={Alarms} id={alarm.label} alarm={alarm}/>)
       }
+      
     }
     return Alarms
+  }
+
+  function ShowAllID(){
+    if(props.isAllAlarms){
+      return "isAll"
+    }
+    else return "notIsAll"
+  }
+
+  function HandleClickShowAll(){
+    props.ToggleAllAlarms()
   }
 
   function RemoveAlarm(alarm){
@@ -96,6 +113,7 @@ export default function AlarmBox(props) {
         {BuildAlarms()}
       </div>
         <Button className={"setAlarmBtn"} variant="outlined" onClick={HandleClickDay}>New Alarm</Button>
+        <Button id={ShowAllID()} className='showAllBtn'variant="outlined" onClick={HandleClickShowAll}>Show All</Button>
         <AlarmDayDialog
             id="Day-Selector"
             keepMounted

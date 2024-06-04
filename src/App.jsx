@@ -4,7 +4,7 @@ import Tracker from './Components/Tracker';
 import TotalProgressBar from './Components/ProgressBar';
 import { Data, Gamestates } from './Data';
 import StateChanger from './Components/StateChanger';
-import { ChangeCurrentDay, ChangeUndoList, ToggleCompleteObjective, CycleNum, LoadList, ResetCycle, SetObjClass, UndoList, UpdatePossible, currentDay, numBottles, setCycleNum, setNumBottles, allShown, parseBool} from './HelperFunctions';
+import { ChangeCurrentDay, ChangeUndoList, ToggleCompleteObjective, CycleNum, LoadList, ResetCycle, SetObjClass, UndoList, UpdatePossible, numBottles, setCycleNum, setNumBottles, allShown, parseBool} from './HelperFunctions';
 import ObjCard from './Components/ObjCard';
 import AlarmBox from './Components/AlarmBox';
 import ObjCardAll from './Components/ObjCardAll';
@@ -30,6 +30,10 @@ function App() {
   const [Alarms, setAlarms] = useState([])
 
   let saveAlarms = []
+
+  let saveIsAlarms = false
+
+  const [isAllAlarms, setIsAllAlarms] = useState(false)
   
   useEffect(() => {
     LoadGame()
@@ -70,6 +74,13 @@ function App() {
         let loadingAlarms = JSON.parse(localStorage.getItem("alarms"))
         setAlarms(loadingAlarms)
         saveAlarms = loadingAlarms
+      }
+
+      if(localStorage.getItem("isAllAlarms")){
+        
+        let allAlarms = parseBool(localStorage.getItem("isAllAlarms"))
+        setIsAllAlarms(allAlarms)
+        saveIsAlarms = allAlarms
       }
 
       if(localStorage.getItem("undoList")){
@@ -118,9 +129,18 @@ function App() {
       localStorage.setItem("alarms", JSON.stringify(Alarms))
     }
 
+    if(saveIsAlarms){
+      localStorage.setItem("isAllAlarms", true)
+    }
+    else if(isAllAlarms){
+      localStorage.setItem("isAllAlarms", true)
+    }
+    else {
+      localStorage.setItem("isAllAlarms", false)
+    }
+
     localStorage.setItem("undoList", JSON.stringify(UndoList))
     
-    console.log(allShown)
     localStorage.setItem("allShown", allShown)
 
     for(let state of Gamestates){
@@ -167,14 +187,21 @@ function App() {
 
   
   function UpdateShown(isAll){
+    console.log(isAll)
+    console.log(allShown)
     if(isAll){
-      setShownObjCards(LoadList(isAll).map((Obj) => <ObjCardAll ToggleAll={ToggleAll} className={SetObjClass(Obj)} obj={Obj} UpdateShown={UpdateShown}></ObjCardAll>))
+      setShownObjCards(LoadList(true).map((Obj) => <ObjCardAll ToggleAll={ToggleAll} className={SetObjClass(Obj)} obj={Obj} UpdateShown={UpdateShown}></ObjCardAll>))
     }
     else if (isAll !== undefined){
-      setShownObjCards(LoadList(isAll).map((Obj) => <ObjCard ToggleAll={ToggleAll} className={SetObjClass(Obj)} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
+      setShownObjCards(LoadList(false).map((Obj) => <ObjCard ToggleAll={ToggleAll} className={SetObjClass(Obj)} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
     }
     else{
-      setShownObjCards(LoadList(allShown).map((Obj) => <ObjCard ToggleAll={ToggleAll} className={SetObjClass(Obj)} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
+      if(allShown){
+        setShownObjCards(LoadList(true).map((Obj) => <ObjCardAll ToggleAll={ToggleAll} className={SetObjClass(Obj)} obj={Obj} UpdateShown={UpdateShown}></ObjCardAll>))
+
+      }
+      else
+        setShownObjCards(LoadList(allShown).map((Obj) => <ObjCard ToggleAll={ToggleAll} className={SetObjClass(Obj)} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
     }
 
     UpdateProgress()
@@ -188,6 +215,7 @@ function App() {
       obj.priority = obj.defaultPriority
     }
     ToggleAll(false)
+    ToggleAllAlarms(false)
     setCycleNumState(0)
     UpdatePossible()
     UpdateShown()
@@ -249,6 +277,16 @@ function App() {
   function ToggleAll(allShown){    
     UpdateShown(allShown)
   }
+  function ToggleAllAlarms(isAll){
+    if(isAll !== undefined){
+      setIsAllAlarms(isAll)
+    } 
+    else setIsAllAlarms(!isAllAlarms)
+
+    console.log(isAllAlarms)
+    UpdateShown()
+    
+  }
 
 
   return (
@@ -256,8 +294,8 @@ function App() {
       <span className='cycle'>Cycle Number: {CycleNumState}</span> <span className='total'>Total Progress</span><span className='day'>Time of Day: {CurrentDay}</span>
       <TotalProgressBar CurrentDay={CurrentDay} CycleNumState={CycleNumState} numCompleted={numCompleted} numPossible={numPossible} numPotential={numPotential}/>
       <StateChanger className={"stateChanger"} UpdateState={UpdateState} GameStateChecks={GameStateChecks} setGameStateChecks={setGameStateChecks}/>
-      <Tracker ToggleAll={ToggleAll} Undo={Undo} ChangeDay={ChangeDay} CurrentDay={CurrentDay} setNextCycle={setNextCycle} FullReset={FullReset} CycleNumState={CycleNumState} setCycleNumState={setCycleNumState} UpdateProgress={UpdateProgress} UpdateShown={UpdateShown} setShownObjCards={setShownObjCards} ShownObjCards={ShownObjCards}/>
-      <AlarmBox UpdateShown={UpdateShown} CurrentDay={CurrentDay} Alarms={Alarms} setAlarms={setAlarms}/>
+      <Tracker allShown={allShown} ToggleAll={ToggleAll} Undo={Undo} ChangeDay={ChangeDay} CurrentDay={CurrentDay} setNextCycle={setNextCycle} FullReset={FullReset} CycleNumState={CycleNumState} setCycleNumState={setCycleNumState} UpdateProgress={UpdateProgress} UpdateShown={UpdateShown} setShownObjCards={setShownObjCards} ShownObjCards={ShownObjCards}/>
+      <AlarmBox isAllAlarms={isAllAlarms} ToggleAllAlarms={ToggleAllAlarms} UpdateShown={UpdateShown} CurrentDay={CurrentDay} Alarms={Alarms} setAlarms={setAlarms}/>
       
     </div>
   )
