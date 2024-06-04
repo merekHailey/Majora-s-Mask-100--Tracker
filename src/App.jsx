@@ -187,6 +187,7 @@ function App() {
       obj.complete = false
       obj.priority = obj.defaultPriority
     }
+    ToggleAll(false)
     setCycleNumState(0)
     UpdatePossible()
     UpdateShown()
