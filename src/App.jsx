@@ -112,7 +112,7 @@ function App() {
     }
 
     localStorage.setItem("undoList", JSON.stringify(UndoList))
-    console.log(localStorage.getItem("undoList"))
+  
 
     for(let state of Gamestates){
       localStorage.setItem(state.name, state.isActive)
@@ -179,11 +179,21 @@ function App() {
     }
   }
 
-  function setNextCycle(){
-    setCycleNum(CycleNumState + 1)
-    setCycleNumState(CycleNumState + 1)
-    UpdatePossible()
-    UpdateShown()
+  function setNextCycle(isUndo){
+    if(!isUndo){
+      setCycleNum(CycleNumState + 1)
+      setCycleNumState(CycleNumState + 1)
+      UpdatePossible()
+      UpdateShown()
+      let undoCycle = {isCycle: true}
+      UndoList.push(undoCycle)
+    }
+    else{
+      setCycleNum(CycleNumState - 1)
+      setCycleNumState(CycleNumState - 1)
+      UpdatePossible()
+      UpdateShown()
+    }
   }
 
   function ChangeDay(day){
@@ -198,15 +208,16 @@ function App() {
     if(UndoList.length > 0){
       let undoObj = UndoList.pop()
       if(undoObj.name){
-        console.log("Obj")
         CompleteObjective(undoObj, true)
       }
     
       else if(undoObj.label){
-      console.log("Alarm")
       let newAlarms = Alarms
       newAlarms.push(undoObj)
       setAlarms(newAlarms)
+      }
+      else if(undoObj.isCycle){
+        setNextCycle(true)
       }
       else{
         console.log("Unhandled:")
