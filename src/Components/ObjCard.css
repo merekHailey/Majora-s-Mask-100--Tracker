@@ -2,35 +2,71 @@
     background-color: #cccccc;
     justify-items: center;
     display: grid;
-    grid-template-areas: "row1"
-                         "row2";
+    grid-template-areas: "pin button";
     width: 100%;
+    height: 12vh;
     padding-bottom: 0.7vh;
     padding-top: 0.3vh;
     grid-template-rows: 50% 50%;
+    grid-template-columns: 7% 93%;
+    justify-items: stretch;
 }
 
 .possible{
     background-color: #ffffff;
     justify-items: center;
     display: grid;
-    grid-template-areas: "row1"
-                         "row2";
+    grid-template-areas: "pin button";
     width: 100%;
+    height: 12vh;
     padding-bottom: 0.7vh;
     padding-top: 0.3vh;
     grid-template-rows: 50% 50%;
+    grid-template-columns: 7% 93%;
+    justify-items: stretch;
+}
+.complete{
+    background-color: #2daa3a;
+    justify-items: center;
+    display: grid;
+    grid-template-areas: "pin button";
+    width: 100%;
+    padding-bottom: 0.7vh;
+    padding-top: 0.3vh;
+    grid-template-rows: 100%;
+    grid-template-columns: 7% 93%;
+    justify-items: stretch;
+}
+.pin{
+    grid-area: pin;
+    height: 12vh;
+}
+.pinned{
+    grid-area: pin;
+    height: 12vh;
+    background-color: yellow;
+}
+.pinImg{
+    height: 3vh;
 }
 .button{
+    grid-area: button;
     width: 100%;
+    height: 12vh;
     border-left: none;
     border-right: none;
     border-top: solid 1px;
     border-bottom: solid 1px;
     padding: 0;
+    justify-items: center;
+    display: grid;
+    grid-template-areas: "row1"
+                         "row2";
+                         grid-template-rows: 50% 50%;
 }
 
 .row1{
+    grid-area: row1;
     display: grid;
     padding-bottom: 1vh;
     justify-items: center;
@@ -40,6 +76,7 @@
 }
 
 .row2{
+    grid-area: row2;
     display: grid;
     justify-items: center;
     grid-template-areas: "spot1 spot2 cycle notes";

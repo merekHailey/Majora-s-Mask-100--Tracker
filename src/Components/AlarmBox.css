@@ -5,10 +5,12 @@
                          "setAlarmBtn";
     grid-template-rows: 85% 15%;
     grid-template-columns: 100%;
+    overflow: auto;
 }
 
 .Alarms{
     grid-area: Alarms;
+    height: 90%;
 }
 
 .setAlarmBtn{

@@ -1,9 +1,27 @@
 import React from 'react';
-import ListItem from '@mui/material/ListItem';
-import { CompleteObjective } from '../HelperFunctions';
+import { CompleteObjective, FindObjIndex } from '../HelperFunctions';
+import { Data } from '../Data';
 import './ObjCard.css'
+import pin from '../Images/pin-icon.webp'
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-export default function ObjCard(props){   
+export default function ObjCard(props){  
+
+    const [isPinned, setIsPinned] = useState(false)
+
+    useEffect(() => {
+        if(props.obj.priority === 0){
+            setIsPinned(true)
+        }
+        else
+            setIsPinned(false)
+    })
+    useEffect(() => {
+        props.UpdateShown()
+
+
+    }, [isPinned])
 
     function ClickHandler(e){
         CompleteObjective(props.obj)
@@ -39,7 +57,7 @@ export default function ObjCard(props){
     }
 
     function PriorityText(){
-            return "Priority: " + props.obj.priority
+            return "Priority: " + props.obj.defaultPriority
     }
 
     function Spot1Text(){
@@ -91,21 +109,33 @@ export default function ObjCard(props){
     function NotesText(){
         return props.obj.notes
     }
+
+    function ClickHandlerPin(){
+        if(Data[FindObjIndex(props.obj.name)].priority !== 0){
+            Data[FindObjIndex(props.obj.name)].priority = 0
+            setIsPinned(true)
+        }
+        else {
+            Data[FindObjIndex(props.obj.name)].priority = Data[FindObjIndex(props.obj.name)].defaultPriority
+            setIsPinned(false)
+        }
+        
+        
+    }
     
     return(
-        <div>
-            <ListItem disablePadding >
-                <button onClick={ClickHandler} className='button'>
-                    <div className={props.className}>
-                        <div className='row1'>
-                            <span className='name'>{props.obj.name}</span> <span className={"items"}>{ItemsText()}</span> <span className={"state"}>{StateText()}</span> <span className={"priority"}>{PriorityText()}</span>
-                        </div>
-                        <div className='row2'>
-                            <span className='spot1'>{Spot1Text()}</span> <span className='spot2'>{Spot2Text()}</span> <span className='cycle'>{CycleNumText()}</span> <span className='notes'>{NotesText()}</span>
-                        </div>
+        <div id={props.obj.id} className={props.className}>
+            <button onClick={ClickHandler} className='button'>
+                    <div className='row1'>
+                        <span className='name'>{props.obj.name}</span> <span className={"items"}>{ItemsText()}</span> <span className={"state"}>{StateText()}</span> <span className={"priority"}>{PriorityText()}</span>
                     </div>
-                </button>
-            </ListItem>
+                    <div className='row2'>
+                        <span className='spot1'>{Spot1Text()}</span> <span className='spot2'>{Spot2Text()}</span> <span className='cycle'>{CycleNumText()}</span> <span className='notes'>{NotesText()}</span>
+                    </div>
+            </button>    
+            <button onClick={ClickHandlerPin} className={isPinned ? "pinned" : "pin"}>
+                <img id={props.obj.name + "Img"} className={"pinImg"} src={pin} alt="Pin"/> 
+            </button>
         </div>
     )
 }

@@ -26,14 +26,17 @@ function App() {
   const [GameStateChecks, setGameStateChecks] = useState(Gamestates)
 
   const [Alarms, setAlarms] = useState([])
+
+  let saveAlarms = []
   
   useEffect(() => {
     LoadGame()
   }, [])
 
   useEffect(() => {
-    
     AutoSave()
+    
+    console.log("Saved")
   },[GameStateChecks, ShownObjCards, Alarms])
 
   useEffect(() => {
@@ -53,8 +56,17 @@ function App() {
         let val = localStorage.getItem(objective.name)
         if(val === "T"){
           CompleteObjective(objective)
-          UpdateShown()
         }
+        else if(val === "FP"){
+          objective.priority = 0
+        }
+      }
+
+      if(localStorage.getItem("alarms")){
+        let loadingAlarms = JSON.parse(localStorage.getItem("alarms"))
+        console.log(loadingAlarms)
+        saveAlarms = loadingAlarms
+        setAlarms(loadingAlarms)
       }
       
     for(let state of Gamestates){
@@ -64,28 +76,31 @@ function App() {
         else
         state.isActive = false
     }
+
     setGameStateChecks(Gamestates)
 
-    
-
-    
-    
-
-    for(let state of Gamestates){
-      localStorage.setItem(state.name, state.isActive)
-    }
+    UpdateShown()
   }
 
   function AutoSave(){
     for(let i = 0; i < Data.length; i++){
-      if(Data[i].complete)
+      if(Data[i].complete){
         localStorage.setItem(Data[i].name, "T")
-      else 
-        localStorage.setItem(Data[i].name, "F")
+      }
+      else{
+        if(Data[i].priority === 0)
+          localStorage.setItem(Data[i].name, "FP")
+        else
+          localStorage.setItem(Data[i].name, "F")
+      }
     }
 
     localStorage.setItem("CycleNum", CycleNum)
     localStorage.setItem("numBottles", numBottles)
+    if(Alarms.length !== 0)
+      localStorage.setItem("alarms", JSON.stringify(Alarms))
+    else
+      localStorage.setItem("alarms", JSON.stringify(saveAlarms))
 
     for(let state of Gamestates){
       localStorage.setItem(state.name, state.isActive)
@@ -140,10 +155,13 @@ function App() {
     UpdateState("All", false)
     for(let obj of Data){
       obj.complete = false
+      obj.priority = obj.defaultPriority
     }
     setCycleNumState(0)
     UpdatePossible()
     UpdateShown()
+    ChangeDay("Day 1")
+    setAlarms([])
   }
 
   function setNextCycle(){
@@ -166,7 +184,7 @@ function App() {
       <TotalProgressBar CurrentDay={CurrentDay} CycleNumState={CycleNumState} numCompleted={numCompleted} numPossible={numPossible} numPotential={numPotential}/>
       <StateChanger className={"stateChanger"} UpdateState={UpdateState} GameStateChecks={GameStateChecks} setGameStateChecks={setGameStateChecks}/>
       <Tracker ChangeDay={ChangeDay} CurrentDay={CurrentDay} setNextCycle={setNextCycle} FullReset={FullReset} CycleNumState={CycleNumState} setCycleNumState={setCycleNumState} UpdateProgress={UpdateProgress} UpdateShown={UpdateShown} setShownObjCards={setShownObjCards} ShownObjCards={ShownObjCards}/>
-      <AlarmBox CurrentDay={CurrentDay} Alarms={Alarms} setAlarms={setAlarms}/>
+      <AlarmBox UpdateShown={UpdateShown} CurrentDay={CurrentDay} Alarms={Alarms} setAlarms={setAlarms}/>
       
     </div>
   )

@@ -31,6 +31,7 @@ export class Objective{
         this.estTime = estTime
         this.cycleNum = cycleNum
         this.priority = priority
+        this.defaultPriority = priority
         this.possible = false
         this.potential = false
         this.complete = false

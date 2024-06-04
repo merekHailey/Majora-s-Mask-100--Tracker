@@ -49,6 +49,7 @@ export default function AlarmBox(props) {
       let tempAlarms = props.Alarms
       tempAlarms.push(alarm)
       props.setAlarms(tempAlarms)
+      props.UpdateShown()
     }
   };
 
