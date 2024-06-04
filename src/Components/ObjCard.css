@@ -49,7 +49,42 @@
 .pinImg{
     height: 3vh;
 }
-.button{
+
+.buttonComplete{
+    background-color: #2daa3a;
+    grid-area: button;
+    width: 100%;
+    height: 12vh;
+    border-left: none;
+    border-right: none;
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+    padding: 0;
+    justify-items: center;
+    display: grid;
+    grid-template-areas: "row1"
+                         "row2";
+                         grid-template-rows: 50% 50%;
+}
+
+.buttonPossible{
+    background-color: #ffffff;
+    grid-area: button;
+    width: 100%;
+    height: 12vh;
+    border-left: none;
+    border-right: none;
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+    padding: 0;
+    justify-items: center;
+    display: grid;
+    grid-template-areas: "row1"
+                         "row2";
+                         grid-template-rows: 50% 50%;
+}
+.buttonPotential{
+    background-color: #cccccc;
     grid-area: button;
     width: 100%;
     height: 12vh;

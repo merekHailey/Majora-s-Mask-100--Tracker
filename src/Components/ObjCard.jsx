@@ -122,10 +122,24 @@ export default function ObjCard(props){
         
         
     }
+
+    function findBtnClass(){
+        if(props.className === "potential"){
+            return "buttonPotential"
+        }
+
+        if(props.className === "possible"){
+            return "buttonPossible"
+        }
+
+        if(props.className === "complete"){
+            return "buttonComplete"
+        }
+    }
     
     return(
         <div id={props.obj.id} className={props.className}>
-            <button onClick={ClickHandler} className='button'>
+            <button onClick={ClickHandler} className={findBtnClass()}>
                     <div className='row1'>
                         <span className='name'>{props.obj.name}</span> <span className={"items"}>{ItemsText()}</span> <span className={"state"}>{StateText()}</span> <span className={"priority"}>{PriorityText()}</span>
                     </div>
