@@ -5,11 +5,12 @@
     grid-template-areas: "pin button";
     width: 100%;
     height: 12vh;
-    padding-bottom: 0.7vh;
-    padding-top: 0.3vh;
     grid-template-rows: 50% 50%;
     grid-template-columns: 7% 93%;
     justify-items: stretch;
+}
+.buttonPotential:hover{
+    border: solid 1px;
 }
 
 .possible{
@@ -19,32 +20,62 @@
     grid-template-areas: "pin button";
     width: 100%;
     height: 12vh;
-    padding-bottom: 0.7vh;
-    padding-top: 0.3vh;
     grid-template-rows: 50% 50%;
     grid-template-columns: 7% 93%;
     justify-items: stretch;
 }
+
+.buttonPossible:hover{
+    border: solid 1px;
+}
+
 .complete{
     background-color: #2daa3a;
     justify-items: center;
     display: grid;
     grid-template-areas: "pin button";
     width: 100%;
-    padding-bottom: 0.7vh;
-    padding-top: 0.3vh;
-    grid-template-rows: 100%;
+    height: 12vh;
+    grid-template-rows: 50% 50%;
     grid-template-columns: 7% 93%;
     justify-items: stretch;
+}
+.buttonComplete:hover{
+    border: solid 1px;
+}
+
+.impossible{
+    background-color: #555555;
+    justify-items: center;
+    display: grid;
+    grid-template-areas: "pin button";
+    width: 100%;
+    min-height: 11vh;
+    overflow-y: hidden;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 7% 93%;
+    justify-items: stretch;
+}
+
+.buttonImpossible:hover{
+    border: solid 1px;
 }
 .pin{
     grid-area: pin;
     height: 12vh;
+    border: solid 1px;
+}
+.pin:hover{
+    border: solid 2px;
 }
 .pinned{
     grid-area: pin;
     height: 12vh;
     background-color: yellow;
+    border: solid 1px;
+}
+.pinned:hover{
+    border: solid 2px;
 }
 .pinImg{
     height: 3vh;
@@ -100,12 +131,30 @@
                          grid-template-rows: 50% 50%;
 }
 
+.buttonImpossible{
+    background-color: #555555;
+    grid-area: button;
+    width: 100%;
+    height: 12vh;
+    border-left: none;
+    border-right: none;
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+    padding: 0;
+    justify-items: center;
+    display: grid;
+    grid-template-areas: "row1"
+                         "row2";
+                         grid-template-rows: 50% 50%;
+}
+
 .row1{
     grid-area: row1;
     display: grid;
+    padding-top: 1vh;
     padding-bottom: 1vh;
     justify-items: center;
-    grid-template-areas: "name items state priority";
+    grid-template-areas: "name R1S1 R1S2 priority";
     grid-template-columns: 35% 20% 20% 25%;
     width: 100%;
 }
@@ -126,15 +175,15 @@
     padding-right: 5%;
 }
 
-.items{
-    grid-area: items;
+.R1S1{
+    grid-area: R1S1;
     font-family: Triforce;
     font-size: larger;
     padding-right: 5%;
 }
 
-.state{
-    grid-area: state;
+.R1S2{
+    grid-area: R1S2;
     font-family: Triforce;
     font-size: larger;
     padding-right: 5%;
@@ -151,30 +200,22 @@
     grid-area: spot1;
     font-family: Triforce;
     font-size: larger;
-    padding-right: 5%;
-    padding-top: 1vh;
 }
 
 .spot2{
     grid-area: spot2;
     font-family: Triforce;
     font-size: larger;
-    padding-right: 5%;
-    padding-top: 1vh;
 }
 
 .cycle{
     grid-area: cycle;
     font-family: Triforce;
     font-size: larger;
-    padding-right: 5%;
-    padding-top: 1vh;
 }
 
 .notes{
     grid-area: notes;
     font-family: Triforce;
     font-size: larger;
-    padding-right: 5%;
-    padding-top: 1vh;
 }

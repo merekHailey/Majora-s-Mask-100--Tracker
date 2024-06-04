@@ -5,6 +5,7 @@
     grid-template-areas: "spot1 spot2 spot3 spot4";
     width: 100%;
     grid-template-columns: 35% 20% 20% 25%;
+    align-items: center;
 }
 
 

@@ -6,7 +6,7 @@ import pin from '../Images/pin-icon.webp'
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-export default function ObjCard(props){  
+export default function ObjCardAll(props){  
 
     const [isPinned, setIsPinned] = useState(false)
 
@@ -24,41 +24,22 @@ export default function ObjCard(props){
     }, [isPinned])
 
     function ClickHandler(e){
-        console.log("hello")
-        ToggleCompleteObjective(props.obj)
+        ToggleCompleteObjective(props.obj, true)
         props.UpdateShown()
     }
 
-    function EstTimeText(){
-        let time = props.obj.estTime
-        let hours = 0
-        let minutes = 0
-        while(time - 60 >= 0){
-            hours++
-            time -= 60
+    function ItemsText(){
+        if(props.obj.itemRecs !== null){
+            let itemText = ""
+            for(let i = 0; i < props.obj.itemRecs.length; ++i){
+                if(i === 0)
+                    itemText = props.obj.itemRecs[i]
+                else
+                    itemText += " / " + props.obj.itemRecs[i]
+            }
+            return itemText
         }
-        minutes = time
-
-        let text = ""
-        if(hours > 0){
-            text += hours
-            if(hours > 1){
-                text += " Hrs "
-            }
-            else{
-                 text += " Hr "
-            }
-        }
-        if(minutes > 0){
-            text += minutes
-            if(minutes > 1){
-                text += " Mins "
-            }
-            else{
-                 text += " Min "
-            }
-        }
-        return text 
+        else return "None"
     }
 
     function StateText(){
@@ -72,28 +53,32 @@ export default function ObjCard(props){
             }
             return stateText
         }
-        else return "Any State"
+        else return "None"
     }
 
     function PriorityText(){
-            return props.obj.defaultPriority
+            return "Priority: " + props.obj.defaultPriority
     }
 
     function Spot1Text(){
 
-        let returnedText = ""
-
-        if(props.obj.day !== null){
-            returnedText = props.obj.day
-        }
-        if(props.obj.time !== null){
-            returnedText += props.obj.day ? " " + props.obj.time : props.obj.time
+        if(props.timeRec !== null){
+            // if(typeof props.timeRec === Time)
+            // return "Time: " + props.obj.timeRec.startTime + " - " + props.obj.timeRec.endTime
+            // else if(typeof props.timeRec === Day){
+            //     return "Day: " + props.timeRec.day
+            // }
         }
         else if(props.obj.bottles !== 0){
             let bottleText = ""
                 bottleText = ("Bottles: " + props.obj.bottles)
             
             return bottleText
+        }
+        else if(props.obj.cost !== 0){
+            let costText = ""
+                costText = ("Cost: " + props.obj.cost + " Rupees")
+            return costText
         }
         else return ""
     }
@@ -102,9 +87,7 @@ export default function ObjCard(props){
 
     function Spot2Text(){
 
-        
-
-        if(props.obj.bottles !== 0 && props.obj.day !== null && props.obj.time){
+        if(props.obj.bottles !== 0 && props.timeRec !== null){
             let bottleText = ""
                 bottleText = ("Bottles: " + props.obj.bottles)
             
@@ -161,7 +144,7 @@ export default function ObjCard(props){
         <div id={props.obj.id} className={props.className}>
             <button onClick={ClickHandler} className={findBtnClass()}>
                     <div className='row1'>
-                        <span className='name'>{props.obj.name}</span> <span className={"R1S1"}>{StateText()}</span> <span className={"R1S2"}>{EstTimeText()}</span> <span className={"priority"}>{PriorityText()}</span>
+                        <span className='name'>{props.obj.name}</span> <span className={"R1S1"}>{ItemsText()}</span> <span className={"R1S2"}>{StateText()}</span> <span className={"priority"}>{PriorityText()}</span>
                     </div>
                     <div className='row2'>
                         <span className='spot1'>{Spot1Text()}</span> <span className='spot2'>{Spot2Text()}</span> <span className='cycle'>{CycleNumText()}</span> <span className='notes'>{NotesText()}</span>

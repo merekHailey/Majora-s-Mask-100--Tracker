@@ -1,11 +1,15 @@
 .tracker{
     display: grid;
 
-    grid-template-areas: "objs        objs objs      objs   objs   objs objs"
-                         "fullResetBtn . changeDayBtn . nextCycleBtn . undoBtn";
+    grid-template-areas: "objs objs objs objs objs objs objs objs objs"
+                         "fullResetBtn . seeAllObjsBtn . changeDayBtn . nextCycleBtn . undoBtn";
     grid-template-rows: 86% 7%;
-    grid-template-columns: 20% 20% 19% 1% 19% 1% 20%;
+    grid-template-columns: 19% 1% 19% 1% 19% 1% 19% 1% 20%;
 
+}
+
+.labels{
+    padding-left: 7%;
 }
 
 .objList{
@@ -45,6 +49,13 @@
 .dayBtn{
     height: 100%;
     width: 100%;
+}
+
+.seeAllObjsBtn{
+    grid-area: seeAllObjsBtn;
+    height: 100%;
+    width: 100%;
+    text-align: center;
 }
 
 .fullResetBtn{

@@ -68,7 +68,7 @@ var GoronsLulluby = new Objective(5, "Goron's Lulluby", null, null, null, ["Goro
 var EponasSong = new Objective(6, "Epona's Song", "Day 1", null, null, ["Powder Keg Licence"], 0, 0, 20, 2, 1, "Can get early by hovering")
 var NewWaveBossaNova = new Objective(7, "New Wave Bossa Nova", null, null, null, ["Zora Mask"], 4, 0, 360, 2, 1)
 var SongOfStorms = new Objective(8, "Song of Storms", "Night 1", null, null, ["Captain's Hat"], 0, 0, 15, 2, 1)
-var ElegyOfEmptiness = new Objective(9, "Elegy of Emptiness", null, null, null, ["Mirror Shield", "Powder Keg Licence"], 0, 0, 180, 2, 2, "Don't Forget Pwder Keg")
+var ElegyOfEmptiness = new Objective(9, "Elegy of Emptiness", null, null, null, ["Mirror Shield", "Powder Keg Licence"], 0, 0, 180, 2, 2, "Don't Forget Powder Keg")
 
 var BombBag = new Objective(10, "Bomb Bag", null, null, null, null, 0, 50, 5, 0, 3)
 var OcarinaOfTime = new Objective(11, "Ocarina of Time", null, null, [FindStateByName("Deed Quest Started")], ["Magic"], 0, 0, 0, 0, 5)
@@ -187,7 +187,7 @@ var MapWoodfall = new Objective(118, "Map: Woodfall", null, null, null, ["Magic"
 var MapSnowhead = new Objective(119, "Map: Snowhead", null, null, null, ["Bow", "Bomb Bag"], 0, 20, 5, 1, 3)
 var MapGreatBay = new Objective(120, "Map: Great Bay", null, null, null, ["Goron Mask", "Bow"], 0, 20, 5, 1, 3)
 var MapIkana = new Objective(121, "Map: Ikana", null, null, null, ["Hookshot", "Garo Mask"], 0, 20, 5, 2, 3)
-//var Map = new Objective(index, "Map: ", Day, time, gameState, itemRecs, bottles, cost, estTime, cycleNum, priority, notes)
+//var Map = new Objective(index, name, day, time, gameState, itemRecs, bottles, cost, estTime, cycleNum, priority, notes)
 
 export var Data = [
     SongOfTime,

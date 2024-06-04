@@ -5,6 +5,8 @@ export var TotalObjectivesCompleted = 0
 export var UndoList = []
 export var currentDay = "Day 1"
 
+export var allShown = false
+
 
 
 export function ChangeUndoList(list){
@@ -20,8 +22,20 @@ export function setNumBottles(num){
     numBottles = num
 }
 
-export function LoadList(options){
+export function parseBool(val){
+     return val === true || val === "true" 
+}
+
+export function LoadList(isAll){
     let ShownList = []
+    if(isAll){
+        allShown = true
+    }
+    else if(isAll === false){
+        allShown = false
+    }
+
+    if(allShown === false){
       UpdatePossible()
       for(let i = 0; i < Data.length; i++){
           if(!Data[i].complete){
@@ -31,7 +45,14 @@ export function LoadList(options){
           }
       }
       ShownList.sort(ComparePriority)
-      return ShownList
+    }
+    else{
+        for(let i = 0; i < Data.length; i++){
+            ShownList.push(Data[i])
+        }
+        ShownList.sort((a, b) => a.index - b.index)
+    }
+    return ShownList
       
   }
 
@@ -52,9 +73,10 @@ export function ResetCycle() {
 //     return undefined
 // }
 
-export function CompleteObjective(Objective, isUnComplete) {
+export function ToggleCompleteObjective(Objective, isUncomplete) {
 
-    if(!isUnComplete){
+    if(!Objective.complete){
+        console.log("again")
         let index = FindObjIndex(Objective.name)
         Data[index].complete = true;
 
@@ -64,7 +86,7 @@ export function CompleteObjective(Objective, isUnComplete) {
         }
         UndoList.push(Objective)
     }
-    else{
+    else if(isUncomplete){
         let index = FindObjIndex(Objective.name)
         Data[index].complete = false;
 
@@ -229,6 +251,23 @@ function ComparePriority(a, b){
     }
     else
         return 0;
+}
+
+export function SetObjClass(Obj){
+    let Class = ""
+    if(!Obj.possible && Obj.potential){
+        Class = "potential"
+    }
+    else if(Obj.complete){
+        Class = "complete"
+    }
+    else if(Obj.possible){
+        Class = "possible"
+    } 
+    else{
+        Class = "impossible"
+    }
+    return Class
 }
 
 export function FindObj(name){

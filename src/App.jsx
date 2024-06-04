@@ -4,9 +4,10 @@ import Tracker from './Components/Tracker';
 import TotalProgressBar from './Components/ProgressBar';
 import { Data, Gamestates } from './Data';
 import StateChanger from './Components/StateChanger';
-import { ChangeCurrentDay, ChangeUndoList, CompleteObjective, CycleNum, LoadList, ResetCycle, UndoList, UpdatePossible, currentDay, numBottles, setCycleNum, setNumBottles } from './HelperFunctions';
+import { ChangeCurrentDay, ChangeUndoList, ToggleCompleteObjective, CycleNum, LoadList, ResetCycle, SetObjClass, UndoList, UpdatePossible, currentDay, numBottles, setCycleNum, setNumBottles, allShown, parseBool} from './HelperFunctions';
 import ObjCard from './Components/ObjCard';
 import AlarmBox from './Components/AlarmBox';
+import ObjCardAll from './Components/ObjCardAll';
 
 
 
@@ -25,6 +26,7 @@ function App() {
 
   const [GameStateChecks, setGameStateChecks] = useState(Gamestates)
 
+
   const [Alarms, setAlarms] = useState([])
 
   let saveAlarms = []
@@ -37,11 +39,12 @@ function App() {
     AutoSave()
     
     console.log("Saved")
-  },[GameStateChecks, ShownObjCards, Alarms])
+  },[GameStateChecks, ShownObjCards, Alarms, allShown])
 
   useEffect(() => {
     UpdateProgress()
   })
+
 
   
 
@@ -55,7 +58,8 @@ function App() {
     for(let objective of Data){
         let val = localStorage.getItem(objective.name)
         if(val === "T"){
-          CompleteObjective(objective)
+          console.log(val)
+          ToggleCompleteObjective(objective)
         }
         else if(val === "FP"){
           objective.priority = 0
@@ -80,6 +84,9 @@ function App() {
         else
         state.isActive = false
     }
+    console.log(localStorage.getItem("allShown"))
+    ToggleAll(parseBool(localStorage.getItem("allShown")))
+    
 
     setGameStateChecks(Gamestates)
 
@@ -112,7 +119,9 @@ function App() {
     }
 
     localStorage.setItem("undoList", JSON.stringify(UndoList))
-  
+    
+    console.log(allShown)
+    localStorage.setItem("allShown", allShown)
 
     for(let state of Gamestates){
       localStorage.setItem(state.name, state.isActive)
@@ -157,8 +166,17 @@ function App() {
   }
 
   
-  function UpdateShown(){
-    setShownObjCards(LoadList().map((Obj) => <ObjCard className={!Obj.possible && Obj.potential ? "potential" : "possible"} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
+  function UpdateShown(isAll){
+    if(isAll){
+      setShownObjCards(LoadList(isAll).map((Obj) => <ObjCardAll ToggleAll={ToggleAll} className={SetObjClass(Obj)} obj={Obj} UpdateShown={UpdateShown}></ObjCardAll>))
+    }
+    else if (isAll !== undefined){
+      setShownObjCards(LoadList(isAll).map((Obj) => <ObjCard ToggleAll={ToggleAll} className={SetObjClass(Obj)} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
+    }
+    else{
+      setShownObjCards(LoadList(allShown).map((Obj) => <ObjCard ToggleAll={ToggleAll} className={SetObjClass(Obj)} obj={Obj} UpdateShown={UpdateShown}></ObjCard>))
+    }
+
     UpdateProgress()
   }
 
@@ -208,7 +226,7 @@ function App() {
     if(UndoList.length > 0){
       let undoObj = UndoList.pop()
       if(undoObj.name){
-        CompleteObjective(undoObj, true)
+        ToggleCompleteObjective(undoObj, true)
       }
     
       else if(undoObj.label){
@@ -227,13 +245,17 @@ function App() {
     UpdateShown()
   }
 
+  function ToggleAll(allShown){    
+    UpdateShown(allShown)
+  }
+
 
   return (
     <div className='app'>
       <span className='cycle'>Cycle Number: {CycleNumState}</span> <span className='total'>Total Progress</span><span className='day'>Time of Day: {CurrentDay}</span>
       <TotalProgressBar CurrentDay={CurrentDay} CycleNumState={CycleNumState} numCompleted={numCompleted} numPossible={numPossible} numPotential={numPotential}/>
       <StateChanger className={"stateChanger"} UpdateState={UpdateState} GameStateChecks={GameStateChecks} setGameStateChecks={setGameStateChecks}/>
-      <Tracker Undo={Undo} ChangeDay={ChangeDay} CurrentDay={CurrentDay} setNextCycle={setNextCycle} FullReset={FullReset} CycleNumState={CycleNumState} setCycleNumState={setCycleNumState} UpdateProgress={UpdateProgress} UpdateShown={UpdateShown} setShownObjCards={setShownObjCards} ShownObjCards={ShownObjCards}/>
+      <Tracker ToggleAll={ToggleAll} Undo={Undo} ChangeDay={ChangeDay} CurrentDay={CurrentDay} setNextCycle={setNextCycle} FullReset={FullReset} CycleNumState={CycleNumState} setCycleNumState={setCycleNumState} UpdateProgress={UpdateProgress} UpdateShown={UpdateShown} setShownObjCards={setShownObjCards} ShownObjCards={ShownObjCards}/>
       <AlarmBox UpdateShown={UpdateShown} CurrentDay={CurrentDay} Alarms={Alarms} setAlarms={setAlarms}/>
       
     </div>

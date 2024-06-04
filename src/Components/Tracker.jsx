@@ -8,6 +8,7 @@ import Labels from './Labels';
 import NextCycle from './NextCycle';
 import FullReset from './FullReset';
 import CurrentDayBtn from './CurrentDayBtn';
+import SeeAllObjsBtn from './SeeAllObjsBtn';
 
 export default function Tracker(props){
 
@@ -21,8 +22,8 @@ export default function Tracker(props){
         <div className="tracker">
             <Box className='objsBox'>
             <nav aria-label="ObjCards"></nav> 
-                <List id="objsList">
-                    <Labels/>
+                <List className="objsList">
+                    <Labels className={"labels"}/>
                     {props.ShownObjCards}
                 </List>     
             </Box>
@@ -30,6 +31,7 @@ export default function Tracker(props){
             <NextCycle setNextCycle={props.setNextCycle}/>
             <FullReset FullReset={props.FullReset}/>
             <CurrentDayBtn ChangeDay={props.ChangeDay} CurrentDay={props.CurrentDay}/>
+            <SeeAllObjsBtn ToggleAll={props.ToggleAll}/>
         </div>
     )
 }
