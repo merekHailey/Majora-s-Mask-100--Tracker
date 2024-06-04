@@ -1,8 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
-import {LoadList, UndoList} from '../HelperFunctions';
-import ObjCard from './ObjCard';
 import UndoBtn from './UndoBtn';
 import './ObjCard.css'
 import './Tracker.css'
@@ -13,14 +11,7 @@ import CurrentDayBtn from './CurrentDayBtn';
 
 export default function Tracker(props){
 
-    
-  function UndoObjective(){
-    if(UndoList.length > 0){
-      UndoList.pop().complete = false
-      props.setShownObjCards(LoadList().map((Obj) => <ObjCard className={!Obj.possible && Obj.potential ? "potential" : "possible"} obj={Obj} UpdateShown={props.UpdateShown}></ObjCard>))
-      props.UpdateProgress()
-    }
-  }
+ 
 
   
 
@@ -35,7 +26,7 @@ export default function Tracker(props){
                     {props.ShownObjCards}
                 </List>     
             </Box>
-            <UndoBtn UndoObjective={UndoObjective}/>
+            <UndoBtn Undo={props.Undo}/>
             <NextCycle setNextCycle={props.setNextCycle}/>
             <FullReset FullReset={props.FullReset}/>
             <CurrentDayBtn ChangeDay={props.ChangeDay} CurrentDay={props.CurrentDay}/>

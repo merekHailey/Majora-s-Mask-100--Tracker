@@ -12,6 +12,8 @@
     grid-area: label;
     font-family: Triforce;
     font-size: 3vh;
+    width: 33vh;
+    overflow: hidden;
 }
 
 .day{

@@ -7,7 +7,9 @@ export var currentDay = "Day 1"
 
 
 
-
+export function ChangeUndoList(list){
+    UndoList = list
+}
 
 
 export function setCycleNum(num){
@@ -50,17 +52,27 @@ export function ResetCycle() {
 //     return undefined
 // }
 
-export function CompleteObjective(Objective) {
+export function CompleteObjective(Objective, isUnComplete) {
 
-    
-    let index = FindObjIndex(Objective.name)
-    Data[index].complete = true;
+    if(!isUnComplete){
+        let index = FindObjIndex(Objective.name)
+        Data[index].complete = true;
 
-    TotalObjectivesCompleted++;
-    if (index >= 21 && index <= 26) {
-        numBottles++;
+        TotalObjectivesCompleted++;
+        if (index >= 21 && index <= 26) {
+            numBottles++;
+        }
+        UndoList.push(Objective)
     }
-    UndoList.push(Objective)
+    else{
+        let index = FindObjIndex(Objective.name)
+        Data[index].complete = false;
+
+        TotalObjectivesCompleted--;
+        if (index >= 21 && index <= 26) {
+            numBottles--;
+        }
+    }
 }
 
 export function UpdatePossible() {

@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 export default function UndoBtn(props) {
 
     function HandleClick(e){
-        props.UndoObjective()
+        props.Undo()
     }
 
   return (

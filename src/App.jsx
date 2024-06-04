@@ -4,7 +4,7 @@ import Tracker from './Components/Tracker';
 import TotalProgressBar from './Components/ProgressBar';
 import { Data, Gamestates } from './Data';
 import StateChanger from './Components/StateChanger';
-import { ChangeCurrentDay, CompleteObjective, CycleNum, LoadList, ResetCycle, UpdatePossible, currentDay, numBottles, setCycleNum, setNumBottles } from './HelperFunctions';
+import { ChangeCurrentDay, ChangeUndoList, CompleteObjective, CycleNum, LoadList, ResetCycle, UndoList, UpdatePossible, currentDay, numBottles, setCycleNum, setNumBottles } from './HelperFunctions';
 import ObjCard from './Components/ObjCard';
 import AlarmBox from './Components/AlarmBox';
 
@@ -64,9 +64,13 @@ function App() {
 
       if(localStorage.getItem("alarms")){
         let loadingAlarms = JSON.parse(localStorage.getItem("alarms"))
-        console.log(loadingAlarms)
-        saveAlarms = loadingAlarms
         setAlarms(loadingAlarms)
+        saveAlarms = loadingAlarms
+      }
+
+      if(localStorage.getItem("undoList")){
+        let loadingList = JSON.parse(localStorage.getItem("undoList"))
+        ChangeUndoList(loadingList)
       }
       
     for(let state of Gamestates){
@@ -97,10 +101,18 @@ function App() {
 
     localStorage.setItem("CycleNum", CycleNum)
     localStorage.setItem("numBottles", numBottles)
-    if(Alarms.length !== 0)
+    if(Alarms.length !== 0){
       localStorage.setItem("alarms", JSON.stringify(Alarms))
-    else
+    }
+    else if(saveAlarms.length !== 0){
       localStorage.setItem("alarms", JSON.stringify(saveAlarms))
+    }
+    else if(Alarms.length === 0){
+      localStorage.setItem("alarms", JSON.stringify(Alarms))
+    }
+
+    localStorage.setItem("undoList", JSON.stringify(UndoList))
+    console.log(localStorage.getItem("undoList"))
 
     for(let state of Gamestates){
       localStorage.setItem(state.name, state.isActive)
@@ -162,6 +174,9 @@ function App() {
     UpdateShown()
     ChangeDay("Day 1")
     setAlarms([])
+    for(let item of UndoList){
+      item = UndoList.pop()
+    }
   }
 
   function setNextCycle(){
@@ -177,13 +192,37 @@ function App() {
     UpdateShown()
   }
 
+     
+  function Undo(){
+    
+    if(UndoList.length > 0){
+      let undoObj = UndoList.pop()
+      if(undoObj.name){
+        console.log("Obj")
+        CompleteObjective(undoObj, true)
+      }
+    
+      else if(undoObj.label){
+      console.log("Alarm")
+      let newAlarms = Alarms
+      newAlarms.push(undoObj)
+      setAlarms(newAlarms)
+      }
+      else{
+        console.log("Unhandled:")
+        console.log(undoObj)
+      }
+    }
+    UpdateShown()
+  }
+
 
   return (
     <div className='app'>
       <span className='cycle'>Cycle Number: {CycleNumState}</span> <span className='total'>Total Progress</span><span className='day'>Time of Day: {CurrentDay}</span>
       <TotalProgressBar CurrentDay={CurrentDay} CycleNumState={CycleNumState} numCompleted={numCompleted} numPossible={numPossible} numPotential={numPotential}/>
       <StateChanger className={"stateChanger"} UpdateState={UpdateState} GameStateChecks={GameStateChecks} setGameStateChecks={setGameStateChecks}/>
-      <Tracker ChangeDay={ChangeDay} CurrentDay={CurrentDay} setNextCycle={setNextCycle} FullReset={FullReset} CycleNumState={CycleNumState} setCycleNumState={setCycleNumState} UpdateProgress={UpdateProgress} UpdateShown={UpdateShown} setShownObjCards={setShownObjCards} ShownObjCards={ShownObjCards}/>
+      <Tracker Undo={Undo} ChangeDay={ChangeDay} CurrentDay={CurrentDay} setNextCycle={setNextCycle} FullReset={FullReset} CycleNumState={CycleNumState} setCycleNumState={setCycleNumState} UpdateProgress={UpdateProgress} UpdateShown={UpdateShown} setShownObjCards={setShownObjCards} ShownObjCards={ShownObjCards}/>
       <AlarmBox UpdateShown={UpdateShown} CurrentDay={CurrentDay} Alarms={Alarms} setAlarms={setAlarms}/>
       
     </div>

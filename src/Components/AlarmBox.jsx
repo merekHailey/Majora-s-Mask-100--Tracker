@@ -7,7 +7,7 @@ import AlarmTimeDialog from './AlarmTimeDialog';
 import AlarmLabelDialog from './AlarmLabelDialog';
 import Alarm from './Alarm';
 import './AlarmBox.css'
-import { isCorrectTime } from '../HelperFunctions'
+import { UndoList, isCorrectTime } from '../HelperFunctions'
 
 
 
@@ -85,6 +85,8 @@ export default function AlarmBox(props) {
                 tempAlarms.splice(i, 1)
                 props.setAlarms(tempAlarms)
             }
+            UndoList.push(alarm)
+            console.log(UndoList)
         }
   }
 
