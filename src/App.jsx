@@ -187,8 +187,6 @@ function App() {
 
   
   function UpdateShown(isAll){
-    console.log(isAll)
-    console.log(allShown)
     if(isAll){
       setShownObjCards(LoadList(true).map((Obj) => <ObjCardAll ToggleAll={ToggleAll} className={SetObjClass(Obj)} obj={Obj} UpdateShown={UpdateShown}></ObjCardAll>))
     }

@@ -38,14 +38,33 @@ export function LoadList(isAll){
 
     if(allShown === false){
       UpdatePossible()
-      for(let i = 0; i < Data.length; i++){
-          if(!Data[i].complete){
-              if(Data[i].possible || Data[i].potential ){
-                  ShownList.push(Data[i])
+      for(let obj of Data){
+          if(!obj.complete){
+              if(obj.possible || obj.priority === 0){
+                  ShownList.push(obj)
               }
           }
       }
       ShownList.sort(ComparePriority)
+      console.log(ShownList)
+
+      let potList = []
+      for(let obj of Data){
+        if(!obj.complete){
+            if(obj.potential && !obj.possible && obj.priority > 0){
+                potList.push(obj)
+            }
+            
+        }
+    }
+    potList.sort(ComparePriority)
+    console.log(potList)
+
+    for(let item of potList){
+        ShownList.push(item)
+        console.log(ShownList)
+    }
+      
     }
     else{
         for(let i = 0; i < Data.length; i++){
@@ -64,15 +83,6 @@ export function ResetCycle() {
 	CycleNum = 0;
 }
 
-// export function FindGamestateID(name){
-//     for(let state of Gamestates){
-//         if(state.name === name){
-//             return state.id
-//         }
-        
-//     }
-//     return undefined
-// }
 
 export function ToggleCompleteObjective(Objective, isUncomplete) {
 
@@ -256,11 +266,12 @@ function ComparePriority(a, b){
 
 export function SetObjClass(Obj){
     let Class = ""
-    if(!Obj.possible && Obj.potential){
-        Class = "potential"
-    }
-    else if(Obj.complete){
+    
+    if(Obj.complete){
         Class = "complete"
+    }
+    else if(!Obj.possible && Obj.potential){
+        Class = "potential"
     }
     else if(Obj.possible){
         Class = "possible"

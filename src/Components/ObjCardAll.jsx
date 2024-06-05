@@ -62,13 +62,18 @@ export default function ObjCardAll(props){
 
     function Spot1Text(){
 
-        if(props.timeRec !== null){
-            // if(typeof props.timeRec === Time)
-            // return "Time: " + props.obj.timeRec.startTime + " - " + props.obj.timeRec.endTime
-            // else if(typeof props.timeRec === Day){
-            //     return "Day: " + props.timeRec.day
-            // }
+            console.log(props.obj)
+        let returnedText = ""
+
+        if(props.obj.day !== null){
+            returnedText = props.obj.day
         }
+        if(props.obj.time !== null){
+            returnedText += props.obj.day ? " - " + props.obj.time : props.obj.time
+        }
+        if(returnedText !== "") 
+            return returnedText
+        
         else if(props.obj.bottles !== 0){
             let bottleText = ""
                 bottleText = ("Bottles: " + props.obj.bottles)
@@ -87,16 +92,22 @@ export default function ObjCardAll(props){
 
     function Spot2Text(){
 
-        if(props.obj.bottles !== 0 && props.timeRec !== null){
+        if(props.obj.bottles !== 0){
+            if(props.day === null || props.time === null){
             let bottleText = ""
                 bottleText = ("Bottles: " + props.obj.bottles)
             
             return bottleText
+            }
         }
         else if(props.obj.cost !== 0){
-            let costText = ""
-                costText = ("Cost: " + props.obj.cost + " Rupees")
-            return costText
+            if(props.day === null || props.time === null){
+                if(props.obj.bottles !== 0){
+                    let costText = ""
+                        costText = ("Cost: " + props.obj.cost + " Rupees")
+                    return costText
+                }
+            }
         }
         else return ""
     }

@@ -24,7 +24,6 @@ export default function ObjCard(props){
     }, [isPinned])
 
     function ClickHandler(e){
-        console.log("hello")
         ToggleCompleteObjective(props.obj)
         props.UpdateShown()
     }
@@ -80,15 +79,17 @@ export default function ObjCard(props){
     }
 
     function Spot1Text(){
-
         let returnedText = ""
 
         if(props.obj.day !== null){
             returnedText = props.obj.day
         }
         if(props.obj.time !== null){
-            returnedText += props.obj.day ? " " + props.obj.time : props.obj.time
+            returnedText += props.obj.day ? " - " + props.obj.time : props.obj.time
         }
+        if(returnedText !== "") 
+            return returnedText
+        
         else if(props.obj.bottles !== 0){
             let bottleText = ""
                 bottleText = ("Bottles: " + props.obj.bottles)
