@@ -154,8 +154,8 @@
     padding-top: 1vh;
     padding-bottom: 1vh;
     justify-items: center;
-    grid-template-areas: "name R1S1 R1S2 priority";
-    grid-template-columns: 35% 20% 20% 25%;
+    grid-template-areas: "name R1S1 R1S2 cycle priority";
+    grid-template-columns: 35% 20% 20% 18% 7%;
     width: 100%;
 }
 
@@ -163,7 +163,7 @@
     grid-area: row2;
     display: grid;
     justify-items: center;
-    grid-template-areas: "spot1 spot2 cycle notes";
+    grid-template-areas: "spot1 spot2 notes notes";
     grid-template-columns: 35% 20% 20% 25%;
     width: 100%;
 }

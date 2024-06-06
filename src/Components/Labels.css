@@ -2,9 +2,9 @@
 
     justify-items: center;
     display: grid;
-    grid-template-areas: "spot1 spot2 spot3 spot4";
+    grid-template-areas: "spot1 spot2 spot3 spot4 spot5";
     width: 100%;
-    grid-template-columns: 35% 20% 20% 25%;
+    grid-template-columns: 35% 20% 20% 18% 7%;
     align-items: center;
 }
 
@@ -29,6 +29,12 @@
 
 .spot4{
     grid-area: spot4;
+    font-family: Triforce;
+    font-size: larger;
+}
+
+.spot5{
+    grid-area: spot5;
     font-family: Triforce;
     font-size: larger;
 }

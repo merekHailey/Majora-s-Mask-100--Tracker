@@ -162,10 +162,10 @@ export default function ObjCard(props){
         <div id={props.obj.id} className={props.className}>
             <button onClick={ClickHandler} className={findBtnClass()}>
                     <div className='row1'>
-                        <span className='name'>{props.obj.name}</span> <span className={"R1S1"}>{StateText()}</span> <span className={"R1S2"}>{EstTimeText()}</span> <span className={"priority"}>{PriorityText()}</span>
+                        <span className='name'>{props.obj.name}</span> <span className={"R1S1"}>{StateText()}</span> <span className={"R1S2"}>{EstTimeText()}</span> <span className='cycle'>{CycleNumText()}</span> <span className={"priority"}>{PriorityText()}</span>
                     </div>
                     <div className='row2'>
-                        <span className='spot1'>{Spot1Text()}</span> <span className='spot2'>{Spot2Text()}</span> <span className='cycle'>{CycleNumText()}</span> <span className='notes'>{NotesText()}</span>
+                        <span className='spot1'>{Spot1Text()}</span> <span className='spot2'>{Spot2Text()}</span> <span className='notes'>{NotesText()}</span>
                     </div>
             </button>    
             <button onClick={ClickHandlerPin} className={isPinned ? "pinned" : "pin"}>
